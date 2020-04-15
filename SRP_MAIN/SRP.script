@@ -1,0 +1,2479 @@
+##SCRIPT FOR Assemble all BUSH_BEARING onto HPC_FRONT_BOTTOM.
+#the rough coordinate of the target object
+Target_root_object_start_pose=p[-0.039, -0.8, 0.213, -180, 0, -90]
+write_output_ﬂoat_register(0, 0) 
+write_output_ﬂoat_register(1, 0)
+write_output_ﬂoat_register(2, 0)
+write_output_ﬂoat_register(3, 0)
+write_output_ﬂoat_register(4, 0)
+write_output_ﬂoat_register(5, 0)
+write_output_integer_register(1,1) #1=Success
+global Pmass_variable=Target_root_object_start_pose
+#global Pmass_variable=get_forward_kin()
+# 'set calibration touch height'
+global Pmass_variable=p[Pmass_variable[0],Pmass_variable[1],0.435,Pmass_variable[3],Pmass_variable[4],Pmass_variable[5]]
+global RXass=Pmass_variable[3]
+global RYass=Pmass_variable[4]
+global RZass=Pmass_variable[5]
+global var_2=pose_trans(Pmass_variable,p[0,0,0,0,0,-d2r(60)])
+# 'var 4 endpose of search 1'
+global var_4=pose_trans(var_2,p[0.25,0,0,0,0,0])
+# 'var 5 endpose of search 1'
+global var_5=pose_trans(Pmass_variable,p[0.25,0,0,0,0,0])
+global var_6=pose_trans(Pmass_variable,p[0,0,0,0,0,d2r(60)])
+# 'var 7 endpose of search 1'
+global var_7=pose_trans(var_6,p[0.25,0,0,0,0,0])
+# 'set the speed for triangulation search'
+movej(var_2, a=1.3962634015954636, v=0.7853981633974483, r=0.05)
+movej(var_4, a=1.3962634015954636, v=0.7853981633974483)
+global var_4=pose_trans(var_4,p[0.15,0,0,0,0,0])
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_50=0
+thread Thread_if_50():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_4), a=0.01, v=0.005)
+  thread_flag_50 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_50=run Thread_if_50()
+  while (thread_flag_50 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_50
+      thread_flag_50 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_50 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_58=0
+thread Thread_if_58():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_4), a=0.01, v=0.005)
+  thread_flag_58 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_58=run Thread_if_58()
+  while (thread_flag_58 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_58
+      thread_flag_58 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_58 = 2
+end
+global PFS1=get_forward_kin()
+movej(Pmass_variable, a=1.0471975511965976, v=0.7853981633974483, r=0.2)
+movej(var_5, a=1.0471975511965976, v=0.7853981633974483)
+global var_5=pose_trans(var_5,p[0.15,0,0,0,0,0])
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_69=0
+thread Thread_if_69():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_5), a=0.01, v=0.005)
+  thread_flag_69 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_69=run Thread_if_69()
+  while (thread_flag_69 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_69
+      thread_flag_69 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_69 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_77=0
+thread Thread_if_77():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_5), a=0.01, v=0.005)
+  thread_flag_77 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_77=run Thread_if_77()
+  while (thread_flag_77 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_77
+      thread_flag_77 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_77 = 2
+end
+global PFS2=get_forward_kin()
+movej(Pmass_variable, a=1.0471975511965976, v=0.7853981633974483, r=0.2)
+movej(var_6, a=1.0471975511965976, v=0.7853981633974483)
+movej(var_7, a=1.0471975511965976, v=0.7853981633974483)
+global var_7=pose_trans(var_7,p[0.15,0,0,0,0,0])
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_89=0
+thread Thread_if_89():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_7), a=0.01, v=0.005)
+  thread_flag_89 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_89=run Thread_if_89()
+  while (thread_flag_89 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_89
+      thread_flag_89 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_89 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_97=0
+thread Thread_if_97():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_7), a=0.01, v=0.005)
+  thread_flag_97 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_97=run Thread_if_97()
+  while (thread_flag_97 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_97
+      thread_flag_97 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_97 = 2
+end
+global PFS3=get_forward_kin()
+global ma=(PFS2[1]-PFS1[1])/(PFS2[0]-PFS1[0])
+global mb=(PFS3[1]-PFS2[1])/(PFS3[0]-PFS2[0])
+global MACTx=(ma*mb*(PFS1[1]-PFS3[1])+mb*(PFS1[0]+PFS2[0])-ma*(PFS2[0]+PFS3[0]))/(2*(mb-ma))
+global MACTy=-(1/ma)*(MACTx-(PFS1[0]+PFS2[0])/2)+(PFS1[1]+PFS2[1])/2
+global MACTz=Pmass_variable[2]
+global Pmact=p[MACTx,MACTy,MACTz,RXass,RYass,RZass]
+# 'Radius wird ueber Mittelwert der drei Vektoren gebildet'
+global radius=(sqrt((MACTx-PFS1[0])*(MACTx-PFS1[0])+(MACTy-PFS1[1])*(MACTy-PFS1[1])))
+# 'circ_start60: startpoint for search of p4 60degrees from assumed point on circumference'
+global circ_start_60=p[MACTx+(radius+0.01)*cos(d2r(circ_s_deg)),MACTy+(radius+0.01)*sin(d2r(circ_s_deg)),MACTz,RXass,RYass,RZass]
+# 'rotate gripper so touch surface is always looking in circumfere direction'
+global circ_start_60= pose_trans (circ_start_60,p[0,0,0,0,0,d2r(90-circ_s_deg)])
+# '2 weitere Punkte fuer eine Kreisbahn mit PFS1+2 +7.5% generieren'
+global PFS1ViaPoint=p[PFS3[0]+0.01*sin(d2r(circ_s_deg)),PFS3[1]+0.01*cos(d2r(circ_s_deg)),PFS3[2],RXass,RYass,RZass]
+global PFS2EndPoint=p[PFS2[0]+0.01*sin(d2r(circ_s_deg)),PFS2[1]+0.01*cos(d2r(circ_s_deg)),PFS2[2],RXass,RYass,RZass]
+movej(Pmact, a=1.3962634015954636, v=1.5707963267948966, r=0.25)
+movej(circ_start_60, a=0.3490658503988659, v=0.2617993877991494)
+sleep(0.5)
+# 'Search along circumfere'
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_130=0
+thread Thread_if_130():
+  movec(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS1ViaPoint), pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS2EndPoint), a=0.01, v=0.005, r=0.0, mode=1)
+  thread_flag_130 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_130=run Thread_if_130()
+  while (thread_flag_130 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_130
+      thread_flag_130 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_130 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_140=0
+thread Thread_if_140():
+  movec(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS1ViaPoint), pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS2EndPoint), a=0.01, v=0.005, r=0.0, mode=1)
+  thread_flag_140 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_140=run Thread_if_140()
+  while (thread_flag_140 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_140
+      thread_flag_140 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_140 = 2
+end
+global PFS4=get_forward_kin()
+movej(circ_start_60, a=0.3490658503988659, v=0.5235987755982988, r=0.005)
+global offset=atan((PFS4[0]-Pmact[0])/(PFS4[1]-Pmact[1]))
+# 'gripper finger fault gets compensated'
+global Preal=pose_trans(Pmact,p[0,0,0,0,0,offset-atan(TCPf_comp/(radius+0.01))])
+write_output_ﬂoat_register(0, Preal[0]) 
+write_output_ﬂoat_register(1, Preal[1])
+write_output_ﬂoat_register(2, Preal[2])
+write_output_ﬂoat_register(3, Preal[3])
+write_output_ﬂoat_register(4, Preal[4])
+write_output_ﬂoat_register(5, Preal[5])
+write_output_integer_register(1,1) #1=Success
+SCRIPT MISSING##Handling FW51528_D__BUSH_BEARING;0;92: Number 1
+#Linear Pick Pose
+movej(p[-0.287500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.650000,0.050000,0.392372,2.356155,0.392895]) #pose on a safe path
+movej(p[-0.450000,-0.650000,0.150000,0.785180,1.570770,0.785529]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.250000,1.177988,0.785385,1.178163]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.305, 0.0, 0.09872459999999991, 1.5707963267948966, 0.0, 1.5707963267948966]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.650000,0.250000,1.177988,0.785385,1.178163]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.650000,0.150000,0.785180,1.570770,0.785529]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.650000,0.050000,0.392372,2.356155,0.392895]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 2
+#Linear Pick Pose
+movej(p[-0.287500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.050000,0.354824,2.602101,0.354228]) #pose on a safe path
+movej(p[-0.450000,-0.650000,0.150000,0.710084,2.062662,0.708193]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.250000,1.065344,1.523222,1.062159]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.350000,1.420605,0.983783,1.416125]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.450000,1.775865,0.444344,1.770091]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.285808971798188, 0.0395321709454988, 0.22307460000000004, 2.1311253153976923, -0.09509560235291385, 2.1240566692381324]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.750000,0.450000,1.775865,0.444344,1.770091]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.750000,0.350000,1.420605,0.983783,1.416125]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.750000,0.250000,1.065344,1.523222,1.062159]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.650000,0.150000,0.710084,2.062662,0.708193]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.050000,0.354824,2.602101,0.354228]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 3
+#Linear Pick Pose
+movej(p[-0.287500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,0.054743,2.202595,-0.054883]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,0.109922,1.263649,-0.110027]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,0.165102,0.324704,-0.165171]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.350000,0.220281,-0.614242,-0.220316]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.27588, 0.0, 0.09872459999999991, 0.2754603568509319, -1.553187206671416, -0.27546035685093195]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.850000,0.350000,0.220281,-0.614242,-0.220316]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,0.165102,0.324704,-0.165171]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,0.109922,1.263649,-0.110027]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,0.054743,2.202595,-0.054883]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 4
+#Linear Pick Pose
+movej(p[-0.287500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,-0.011186,2.670576,-0.010558]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.021936,2.199612,-0.021377]) #pose on a safe path
+movej(p[0.050000,-0.750000,0.150000,-0.032685,1.728648,-0.032197]) #pose on a safe path
+movej(p[0.150000,-0.750000,0.150000,-0.043435,1.257684,-0.043016]) #pose on a safe path
+movej(p[0.250000,-0.750000,0.150000,-0.054185,0.786720,-0.053836]) #pose on a safe path
+movej(p[0.350000,-0.750000,0.150000,-0.064935,0.315756,-0.064655]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.250000,-0.075684,-0.155208,-0.075475]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.350000,-0.086434,-0.626172,-0.086294]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.450000,-0.097184,-1.097136,-0.097114]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.252307916704385, 0.0348984135498144, 0.22307460000000004, -0.10793347182537825, -1.5681000498621822, -0.10793347182537825]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.750000,0.450000,-0.097184,-1.097136,-0.097114]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.750000,0.350000,-0.086434,-0.626172,-0.086294]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.750000,0.250000,-0.075684,-0.155208,-0.075475]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.750000,0.150000,-0.064935,0.315756,-0.064655]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.750000,0.150000,-0.054185,0.786720,-0.053836]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.750000,0.150000,-0.043435,1.257684,-0.043016]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.750000,0.150000,-0.032685,1.728648,-0.032197]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.021936,2.199612,-0.021377]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,-0.011186,2.670576,-0.010558]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 5
+#Linear Pick Pose
+movej(p[-0.287500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,0.013317,2.618339,0.013938]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,0.027071,2.095137,0.027614]) #pose on a safe path
+movej(p[0.050000,-0.750000,0.150000,0.040825,1.571935,0.041290]) #pose on a safe path
+movej(p[0.150000,-0.750000,0.150000,0.054579,1.048734,0.054966]) #pose on a safe path
+movej(p[0.250000,-0.750000,0.150000,0.068332,0.525532,0.068643]) #pose on a safe path
+movej(p[0.350000,-0.750000,0.150000,0.082086,0.002330,0.082319]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.250000,0.095840,-0.520871,0.095995]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.350000,0.109593,-1.044073,0.109671]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.301244943881519, 0.0477125118372694, 0.09872459999999988, 0.12334717363466008, -1.5672744418305125, 0.12334717363466008]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.750000,0.350000,0.109593,-1.044073,0.109671]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.750000,0.250000,0.095840,-0.520871,0.095995]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.750000,0.150000,0.082086,0.002330,0.082319]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.750000,0.150000,0.068332,0.525532,0.068643]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.750000,0.150000,0.054579,1.048734,0.054966]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.750000,0.150000,0.040825,1.571935,0.041290]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,0.027071,2.095137,0.027614]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,0.013317,2.618339,0.013938]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 6
+#Linear Pick Pose
+movej(p[-0.287500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,0.027007,2.619514,0.027628]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,0.054451,2.097487,0.054994]) #pose on a safe path
+movej(p[0.050000,-0.650000,0.150000,0.081895,1.575461,0.082360]) #pose on a safe path
+movej(p[0.150000,-0.650000,0.150000,0.109338,1.053435,0.109726]) #pose on a safe path
+movej(p[0.250000,-0.650000,0.150000,0.136782,0.531408,0.137092]) #pose on a safe path
+movej(p[0.350000,-0.650000,0.150000,0.164226,0.009382,0.164458]) #pose on a safe path
+movej(p[0.450000,-0.650000,0.250000,0.191669,-0.512645,0.191824]) #pose on a safe path
+movej(p[0.450000,-0.650000,0.350000,0.219113,-1.034671,0.219191]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.290072237470024, 0.0942501832843581, 0.09872459999999988, 0.24655668767780622, -1.5566976602790237, 0.24655668767780622]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.650000,0.350000,0.219113,-1.034671,0.219191]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.650000,0.250000,0.191669,-0.512645,0.191824]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.650000,0.150000,0.164226,0.009382,0.164458]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.650000,0.150000,0.136782,0.531408,0.137092]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.650000,0.150000,0.109338,1.053435,0.109726]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.650000,0.150000,0.081895,1.575461,0.082360]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,0.054451,2.097487,0.054994]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,0.027007,2.619514,0.027628]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 7
+#Linear Pick Pose
+movej(p[-0.287500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.450000,0.050000,0.073549,2.205426,0.074107]) #pose on a safe path
+movej(p[-0.450000,-0.550000,0.150000,0.147534,1.269311,0.147953]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.250000,0.221519,0.333197,0.221798]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.350000,0.295504,-0.602918,0.295644]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.271756989877454, 0.138467102420561, 0.09872459999999988, 0.36948901637979953, -1.539032514977724, 0.36948901637979953]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.650000,0.350000,0.295504,-0.602918,0.295644]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.650000,0.250000,0.221519,0.333197,0.221798]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.550000,0.150000,0.147534,1.269311,0.147953]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.450000,0.050000,0.073549,2.205426,0.074107]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 8
+#Linear Pick Pose
+movej(p[-0.287500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,0.061118,2.559570,0.061729]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,0.122673,1.977599,0.123197]) #pose on a safe path
+movej(p[0.050000,-0.550000,0.150000,0.184228,1.395629,0.184664]) #pose on a safe path
+movej(p[0.150000,-0.550000,0.150000,0.245782,0.813659,0.246131]) #pose on a safe path
+movej(p[0.250000,-0.550000,0.150000,0.307337,0.231688,0.307599]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.250000,0.368892,-0.350282,0.369066]) #pose on a safe path
+movej(p[0.450000,-0.550000,0.350000,0.430446,-0.932253,0.430533]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.246750183284361, 0.179274501949204, 0.09872459999999988, 0.4920008566833113, -1.5142229368903577, 0.4920008566833113]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.550000,0.350000,0.430446,-0.932253,0.430533]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.450000,0.250000,0.368892,-0.350282,0.369066]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.550000,0.150000,0.307337,0.231688,0.307599]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.550000,0.150000,0.245782,0.813659,0.246131]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.550000,0.150000,0.184228,1.395629,0.184664]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,0.122673,1.977599,0.123197]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,0.061118,2.559570,0.061729]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 9
+#Linear Pick Pose
+movej(p[-0.287500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.287500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.287500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,0.087332,2.481007,0.087931]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.150000,0.175101,1.820475,0.175599]) #pose on a safe path
+movej(p[0.050000,-0.450000,0.150000,0.262869,1.159942,0.263268]) #pose on a safe path
+movej(p[0.150000,-0.450000,0.150000,0.350638,0.499409,0.350937]) #pose on a safe path
+movej(p[0.250000,-0.350000,0.250000,0.438406,-0.161124,0.438606]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.350000,0.526175,-0.821657,0.526274]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.215667568261899, 0.215667568261897, 0.09872459999999988, 0.613943125568934, -1.4821898202742563, 0.613943125568934]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.350000,-0.450000,0.350000,0.526175,-0.821657,0.526274]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.350000,0.250000,0.438406,-0.161124,0.438606]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.450000,0.150000,0.350638,0.499409,0.350937]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.450000,0.150000,0.262869,1.159942,0.263268]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.150000,0.175101,1.820475,0.175599]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,0.087332,2.481007,0.087931]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 10
+#Linear Pick Pose
+movej(p[-0.262500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,0.146683,2.224666,0.147241]) #pose on a safe path
+movej(p[-0.050000,-0.350000,0.150000,0.293802,1.307792,0.294221]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.250000,0.440921,0.390918,0.441200]) #pose on a safe path
+movej(p[0.150000,-0.250000,0.350000,0.588040,-0.525956,0.588179]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.179274501949207, 0.246750183284359, 0.09872459999999988, 0.7351588162818358, -1.4428304160494692, 0.7351588162818358]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.150000,-0.250000,0.350000,0.588040,-0.525956,0.588179]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.250000,0.440921,0.390918,0.441200]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.350000,0.150000,0.293802,1.307792,0.294221]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,0.146683,2.224666,0.147241]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 11
+#Linear Pick Pose
+movej(p[-0.262500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.350000,0.050000,0.170747,2.234029,0.171306]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.150000,0.341930,1.326517,0.342349]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.250000,0.513114,0.419006,0.513393]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.350000,0.684297,-0.488506,0.684437]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.138467102420564, 0.271756989877452, 0.09872459999999988, 0.8554806590308102, -1.3960175567454827, 0.8554806590308102]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.050000,-0.250000,0.350000,0.684297,-0.488506,0.684437]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.250000,0.513114,0.419006,0.513393]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.150000,0.341930,1.326517,0.342349]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,0.050000,0.170747,2.234029,0.171306]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 12
+#Linear Pick Pose
+movej(p[-0.262500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.350000,0.050000,0.194597,2.244912,0.195155]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.150000,0.389630,1.348285,0.390048]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.250000,0.584663,0.451657,0.584942]) #pose on a safe path
+movej(p[0.150000,-0.250000,0.350000,0.779696,-0.444971,0.779835]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.0942501832843613, 0.290072237470022, 0.0987245999999999, 0.9747285250892458, -1.3415987193003756, 0.974728525089246]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.150000,-0.250000,0.350000,0.779696,-0.444971,0.779835]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.250000,0.584663,0.451657,0.584942]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.150000,0.389630,1.348285,0.390048]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,0.050000,0.194597,2.244912,0.195155]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 13
+#Linear Pick Pose
+movej(p[-0.262500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.050000,0.136207,2.588923,0.136817]) #pose on a safe path
+movej(p[-0.350000,-0.650000,0.150000,0.272849,2.036306,0.273373]) #pose on a safe path
+movej(p[-0.350000,-0.750000,0.150000,0.409492,1.483690,0.409929]) #pose on a safe path
+movej(p[-0.350000,-0.850000,0.150000,0.546135,0.931073,0.546484]) #pose on a safe path
+movej(p[-0.350000,-0.950000,0.150000,0.682778,0.378456,0.683040]) #pose on a safe path
+movej(p[-0.350000,-1.050000,0.250000,0.819421,-0.174161,0.819595]) #pose on a safe path
+movej(p[-0.350000,-1.050000,0.350000,0.956064,-0.726778,0.956151]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.04771251183727271, 0.301244943881518, 0.0987245999999999, 1.092706504465373, -1.2793949366416368, 1.092706504465373]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.350000,-1.050000,0.350000,0.956064,-0.726778,0.956151]) #pose on a safe path (reverse)
+movej(p[-0.350000,-1.050000,0.250000,0.819421,-0.174161,0.819595]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.950000,0.150000,0.682778,0.378456,0.683040]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.850000,0.150000,0.546135,0.931073,0.546484]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.750000,0.150000,0.409492,1.483690,0.409929]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.650000,0.150000,0.272849,2.036306,0.273373]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.050000,0.136207,2.588923,0.136817]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 14
+#Linear Pick Pose
+movej(p[-0.262500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.350000,0.050000,0.241491,2.271392,0.242049]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.150000,0.483418,1.401244,0.483837]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.250000,0.725345,0.531096,0.725624]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.350000,0.967272,-0.339052,0.967412]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[2.166095054980055e-15, 0.305000000000001, 0.0987245999999999, 1.2091995761561454, -1.2091995761561456, 1.2091995761561456]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.050000,-0.250000,0.350000,0.967272,-0.339052,0.967412]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.250000,0.725345,0.531096,0.725624]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.150000,0.483418,1.401244,0.483837]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,0.050000,0.241491,2.271392,0.242049]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 15
+#Linear Pick Pose
+movej(p[-0.262500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.050000,0.264445,2.287077,0.265003]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.150000,0.529326,1.432613,0.529745]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.250000,0.794207,0.578150,0.794487]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.350000,1.059089,-0.276314,1.059228]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.04771251183726839, 0.301244943881518, 0.0987245999999999, 1.323969776114675, -1.1307770139169389, 1.323969776114675]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.050000,-0.250000,0.350000,1.059089,-0.276314,1.059228]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.250000,0.794207,0.578150,0.794487]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.150000,0.529326,1.432613,0.529745]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.050000,0.264445,2.287077,0.265003]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 16
+#Linear Pick Pose
+movej(p[-0.262500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,0.179212,2.618365,0.179823]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,0.358861,2.095190,0.359384]) #pose on a safe path
+movej(p[0.050000,-0.650000,0.150000,0.538509,1.572015,0.538946]) #pose on a safe path
+movej(p[0.150000,-0.750000,0.150000,0.718158,1.048840,0.718507]) #pose on a safe path
+movej(p[0.250000,-0.850000,0.150000,0.897806,0.525664,0.898068]) #pose on a safe path
+movej(p[0.350000,-0.950000,0.250000,1.077455,0.002489,1.077629]) #pose on a safe path
+movej(p[0.350000,-0.950000,0.350000,1.257103,-0.520686,1.257191]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.0942501832843571, 0.290072237470023, 0.0987245999999999, 1.436751751072678, -1.0438612493404769, 1.4367517510726782]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.350000,-0.950000,0.350000,1.257103,-0.520686,1.257191]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.950000,0.250000,1.077455,0.002489,1.077629]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.850000,0.150000,0.897806,0.525664,0.898068]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.750000,0.150000,0.718158,1.048840,0.718507]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.650000,0.150000,0.538509,1.572015,0.538946]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,0.358861,2.095190,0.359384]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,0.179212,2.618365,0.179823]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 17
+#Linear Pick Pose
+movej(p[-0.262500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.050000,0.309100,2.323601,0.309659]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.150000,0.618637,1.505662,0.619056]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.250000,0.928174,0.687723,0.928453]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.350000,1.237711,-0.130216,1.237850]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.13846710242056, 0.271756989877453, 0.09872459999999991, 1.5472475658987617, -0.9481545278303573, 1.5472475658987617]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.150000,-0.250000,0.350000,1.237711,-0.130216,1.237850]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.250000,0.928174,0.687723,0.928453]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.150000,0.618637,1.505662,0.619056]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.050000,0.309100,2.323601,0.309659]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 18
+#Linear Pick Pose
+movej(p[-0.262500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.262500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.262500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.050000,0.330675,2.344567,0.331234]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.150000,0.661786,1.547594,0.662205]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.250000,0.992898,0.750620,0.993177]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.350000,1.324009,-0.046353,1.324149]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.179274501949203, 0.24675018328436, 0.09872459999999991, 1.655120607949105, -0.8433260717327652, 1.655120607949105]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.350000,-0.350000,0.350000,1.324009,-0.046353,1.324149]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.350000,0.250000,0.992898,0.750620,0.993177]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.350000,0.150000,0.661786,1.547594,0.662205]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.350000,0.050000,0.330675,2.344567,0.331234]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 19
+#Linear Pick Pose
+movej(p[-0.237500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,0.219617,2.657721,0.220228]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,0.439670,2.173902,0.440193]) #pose on a safe path
+movej(p[0.050000,-0.550000,0.150000,0.659723,1.690084,0.660159]) #pose on a safe path
+movej(p[0.150000,-0.550000,0.150000,0.879776,1.206265,0.880125]) #pose on a safe path
+movej(p[0.250000,-0.550000,0.150000,1.099829,0.722446,1.100091]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.250000,1.319882,0.238627,1.320057]) #pose on a safe path
+movej(p[0.450000,-0.550000,0.350000,1.539935,-0.245192,1.540023]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.215667568261896, 0.215667568261899, 0.09872459999999991, 1.759988403788184, -0.7290110664684463, 1.759988403788184]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.550000,0.350000,1.539935,-0.245192,1.540023]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.450000,0.250000,1.319882,0.238627,1.320057]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.550000,0.150000,1.099829,0.722446,1.100091]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.550000,0.150000,0.879776,1.206265,0.880125]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.550000,0.150000,0.659723,1.690084,0.660159]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,0.439670,2.173902,0.440193]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,0.219617,2.657721,0.220228]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 20
+#Linear Pick Pose
+movej(p[-0.237500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.450000,0.050000,0.371934,2.392270,0.372492]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.150000,0.744304,1.643000,0.744723]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.250000,1.116674,0.893730,1.116953]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.350000,1.489044,0.144460,1.489184]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.246750183284358, 0.179274501949206, 0.09872459999999991, 1.8614141320555968, -0.6048101143511483, 1.8614141320555968]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.450000,-0.450000,0.350000,1.489044,0.144460,1.489184]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.450000,0.250000,1.116674,0.893730,1.116953]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.450000,0.150000,0.744304,1.643000,0.744723]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.450000,0.050000,0.371934,2.392270,0.372492]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 21
+#Linear Pick Pose
+movej(p[-0.237500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.050000,0.391430,2.419174,0.391989]) #pose on a safe path
+movej(p[-0.450000,-0.550000,0.150000,0.783297,1.696808,0.783716]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.250000,1.175163,0.974442,1.175443]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.350000,1.567030,0.252076,1.567170]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.271756989877451, 0.138467102420563, 0.09872459999999991, 1.9588965822523492, -0.4702894606334295, 1.9588965822523494]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.550000,0.350000,1.567030,0.252076,1.567170]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.550000,0.250000,1.175163,0.974442,1.175443]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.550000,0.150000,0.783297,1.696808,0.783716]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.050000,0.391430,2.419174,0.391989]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 22
+#Linear Pick Pose
+movej(p[-0.237500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.050000,0.410023,2.448236,0.410581]) #pose on a safe path
+movej(p[-0.450000,-0.650000,0.150000,0.820482,1.754931,0.820900]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.250000,1.230940,1.061627,1.231220]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.350000,1.641399,0.368322,1.641539]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.290072237470021, 0.0942501832843606, 0.09872459999999991, 2.0518582753399595, -0.32498242456499266, 2.0518582753399595]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.650000,0.350000,1.641399,0.368322,1.641539]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.650000,0.250000,1.230940,1.061627,1.231220]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.650000,0.150000,0.820482,1.754931,0.820900]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.050000,0.410023,2.448236,0.410581]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 23
+#Linear Pick Pose
+movej(p[-0.237500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.050000,0.427577,2.479554,0.428136]) #pose on a safe path
+movej(p[-0.450000,-0.650000,0.150000,0.855591,1.817567,0.856010]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.250000,1.283604,1.155581,1.283884]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.350000,1.711618,0.493594,1.711758]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.301244943881517, 0.047712511837272, 0.09872459999999991, 2.1396314332013566, -0.16839264576855728, 2.1396314332013566]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.750000,0.350000,1.711618,0.493594,1.711758]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.750000,0.250000,1.283604,1.155581,1.283884]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.650000,0.150000,0.855591,1.817567,0.856010]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.050000,0.427577,2.479554,0.428136]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 24
+#Linear Pick Pose
+movej(p[-0.237500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,0.343164,2.707157,0.353472]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,0.686765,2.272773,0.706682]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,1.030366,1.838390,1.059891]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,1.373966,1.404007,1.413101]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,1.717567,0.969623,1.766311]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.272483459403388, 0.0431571402152979, 0.09872459999999988, 2.061167553951968, 0.535239740141798, 2.119521103468712]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,1.717567,0.969623,1.766311]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,1.373966,1.404007,1.413101]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,1.030366,1.838390,1.059891]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,0.686765,2.272773,0.706682]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,0.343164,2.707157,0.353472]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 25
+#Linear Pick Pose
+movej(p[-0.237500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,0.346709,2.737843,0.367353]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,0.693855,2.334145,0.734444]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,1.041000,1.930448,1.101535]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,1.388145,1.526750,1.468626]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,1.735291,1.123053,1.835717]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.262377471715509, 0.0852516084081597, 0.09872459999999988, 2.0824362304992636, 0.7193555714518765, 2.2028076433623704]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,1.735291,1.123053,1.835717]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,1.388145,1.526750,1.468626]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,1.041000,1.930448,1.101535]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,0.693855,2.334145,0.734444]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,0.346709,2.737843,0.367353]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 26
+#Linear Pick Pose
+movej(p[-0.237500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,-0.330869,2.473852,-0.359684]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.661302,1.806163,-0.719630]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.991735,1.138474,-1.079576]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-1.322169,0.470785,-1.439522]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-1.652602,-0.196903,-1.799467]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.245810879893089, 0.125246899068146, 0.09872459999999988, -1.9830346630537357, -0.8645919417006307, -2.159413350156015]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-1.652602,-0.196903,-1.799467]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-1.322169,0.470785,-1.439522]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.991735,1.138474,-1.079576]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.661302,1.806163,-0.719630]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,-0.330869,2.473852,-0.359684]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 27
+#Linear Pick Pose
+movej(p[-0.237500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.237500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.237500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,-0.308209,2.453873,-0.345276]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.615982,1.766206,-0.690814]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.923755,1.078539,-1.036353]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-1.231528,0.390872,-1.381891]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-1.539301,-0.296795,-1.727429]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.223191608408163, 0.162158195402447, 0.09872459999999988, -1.8470742661152946, -0.984462217023153, -2.07296684376527]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-1.539301,-0.296795,-1.727429]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-1.231528,0.390872,-1.381891]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.923755,1.078539,-1.036353]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.615982,1.766206,-0.690814]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,-0.308209,2.453873,-0.345276]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 28
+#Linear Pick Pose
+movej(p[-0.212500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.650000,0.050000,-0.342349,2.294876,-0.396023]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.150000,-0.684263,1.448212,-0.792307]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-1.026176,0.601547,-1.188591]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-1.368089,-0.245117,-1.584876]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.195076618793747, 0.195076618793744, 0.09872459999999988, -1.710001942643063, -1.091781590464124, -1.9811601356768966]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-1.368089,-0.245117,-1.584876]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-1.026176,0.601547,-1.188591]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.150000,-0.684263,1.448212,-0.792307]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.650000,0.050000,-0.342349,2.294876,-0.396023]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 29
+#Linear Pick Pose
+movej(p[-0.212500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,-0.314808,2.275780,-0.376727]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.629179,1.410020,-0.753717]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.943551,0.544260,-1.130706]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-1.257922,-0.321500,-1.507695]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.16215819540245, 0.22319160840816, 0.09872459999999988, -1.5722939793731199, -1.1872597262686595, -1.8846845086320618]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-1.257922,-0.321500,-1.507695]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.943551,0.544260,-1.130706]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.629179,1.410020,-0.753717]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,-0.314808,2.275780,-0.376727]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 30
+#Linear Pick Pose
+movej(p[-0.212500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,-0.287219,2.258923,-0.356618]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.574001,1.376305,-0.713498]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.860783,0.493688,-1.070378]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-1.147566,-0.388930,-1.427257]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.125246899068148, 0.245810879893087, 0.09872459999999988, -1.4343482746599916, -1.2715471578956121, -1.7841373035116153]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-1.147566,-0.388930,-1.427257]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.860783,0.493688,-1.070378]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.574001,1.376305,-0.713498]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,-0.287219,2.258923,-0.356618]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 31
+#Linear Pick Pose
+movej(p[-0.212500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,-0.259649,2.244185,-0.335798]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.518862,1.346829,-0.671858]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.778074,0.449474,-1.007917]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-1.037287,-0.447881,-1.343977]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.0852516084081627, 0.262377471715507, 0.0987245999999999, -1.296499334239873, -1.3452367479534821, -1.6800365025767907]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-1.037287,-0.447881,-1.343977]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.778074,0.449474,-1.007917]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.518862,1.346829,-0.671858]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,-0.259649,2.244185,-0.335798]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 32
+#Linear Pick Pose
+movej(p[-0.212500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.550000,0.050000,-0.232155,2.231459,-0.314357]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.463874,1.321378,-0.628976]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.695593,0.411296,-0.943595]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.927312,-0.498785,-1.258214]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.04315714021530101, 0.272483459403387, 0.0987245999999999, -1.1590304905404936, -1.4088662518171335, -1.5728330851307784]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.927312,-0.498785,-1.258214]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.695593,0.411296,-0.943595]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.463874,1.321378,-0.628976]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,0.050000,-0.232155,2.231459,-0.314357]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 33
+#Linear Pick Pose
+movej(p[-0.212500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,-0.170728,2.374130,-0.243602]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.341019,1.606720,-0.487466]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.511310,0.839309,-0.731330]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.681601,0.071899,-0.975194]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.851893,-0.695511,-1.219058]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[2.052408217258445e-15, 0.275880000000001, 0.0987245999999999, -1.0221838715529383, -1.4629214737482734, -1.4629214737482739]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.851893,-0.695511,-1.219058]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.681601,0.071899,-0.975194]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.511310,0.839309,-0.731330]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.341019,1.606720,-0.487466]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,-0.170728,2.374130,-0.243602]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 34
+#Linear Pick Pose
+movej(p[-0.212500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,-0.148058,2.366644,-0.224890]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.295680,1.591747,-0.450042]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.443302,0.816850,-0.675193]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.590924,0.041954,-0.900345]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.738547,-0.732943,-1.125497]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.04315714021529699, 0.272483459403387, 0.0987245999999999, -0.8861685545175313, -1.5078396749324048, -1.350648362656079]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.738547,-0.732943,-1.125497]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.590924,0.041954,-0.900345]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.443302,0.816850,-0.675193]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.295680,1.591747,-0.450042]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,-0.148058,2.366644,-0.224890]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 35
+#Linear Pick Pose
+movej(p[-0.212500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,-0.125558,2.360615,-0.205835]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.250680,1.579689,-0.411932]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.375802,0.798764,-0.618029]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.500924,0.017838,-0.824126]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.626045,-0.763087,-1.030223]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.0852516084081587, 0.262377471715508, 0.0987245999999999, -0.7511672608180531, -1.544013011471358, -1.2363201865934865]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.626045,-0.763087,-1.030223]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.500924,0.017838,-0.824126]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.375802,0.798764,-0.618029]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.250680,1.579689,-0.411932]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,-0.125558,2.360615,-0.205835]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 36
+#Linear Pick Pose
+movej(p[-0.212500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.212500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.212500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.450000,0.050000,-0.103254,2.355985,-0.186483]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.206072,1.570430,-0.373229]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.308889,0.784874,-0.559974]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.411707,-0.000681,-0.746719]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.514524,-0.786237,-0.933464]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.125246899068144, 0.245810879893088, 0.09872459999999991, -0.6173418820669496, -1.5717918620599343, -1.120209454211863]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.514524,-0.786237,-0.933464]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.411707,-0.000681,-0.746719]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.308889,0.784874,-0.559974]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.206072,1.570430,-0.373229]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,0.050000,-0.103254,2.355985,-0.186483]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 37
+#Linear Pick Pose
+movej(p[-0.187500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.050000,-0.097317,2.194935,-0.200303]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.150000,-0.194197,1.248329,-0.400867]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.291077,0.301723,-0.601431]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.387958,-0.644882,-0.801996]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.162158195402446, 0.223191608408162, 0.09872459999999991, -0.4848380725762171, -1.5914879607338317, -1.0025601377665958]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.387958,-0.644882,-0.801996]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.291077,0.301723,-0.601431]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.150000,-0.194197,1.248329,-0.400867]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.050000,-0.097317,2.194935,-0.200303]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 38
+#Linear Pick Pose
+movej(p[-0.187500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,-0.071107,2.192557,-0.176509]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.141777,1.243573,-0.353280]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.212448,0.294590,-0.530051]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.283119,-0.654394,-0.706821]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.195076618793743, 0.195076618793746, 0.09872459999999991, -0.35378909885623566, -1.6033772875230698, -0.8835922818969395]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.283119,-0.654394,-0.706821]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.212448,0.294590,-0.530051]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.141777,1.243573,-0.353280]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,-0.071107,2.192557,-0.176509]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 39
+#Linear Pick Pose
+movej(p[-0.187500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,-0.045213,2.191692,-0.152492]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.089989,1.241843,-0.305245]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.134766,0.291995,-0.457999]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.179543,-0.657854,-0.610752]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.223191608408159, 0.162158195402449, 0.09872459999999991, -0.22431910093965157, -1.6077026946387127, -0.7635059691564261]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.179543,-0.657854,-0.610752]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.134766,0.291995,-0.457999]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.089989,1.241843,-0.305245]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,-0.045213,2.191692,-0.152492]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 40
+#Linear Pick Pose
+movej(p[-0.187500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,-0.019658,2.192297,-0.128288]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.038880,1.243054,-0.256837]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.058102,0.293810,-0.385386]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,-0.077324,-0.655433,-0.513935]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.245810879893086, 0.125246899068148, 0.09872459999999991, -0.09654589173593915, -1.6046762618856916, -0.6424847586333752]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,-0.077324,-0.655433,-0.513935]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.058102,0.293810,-0.385386]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.038880,1.243054,-0.256837]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,-0.019658,2.192297,-0.128288]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 41
+#Linear Pick Pose
+movej(p[-0.187500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,0.005534,2.194336,-0.103930]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,0.011505,1.247132,-0.208122]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,0.017475,0.299927,-0.312314]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,0.023446,-0.647277,-0.416507]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.262377471715506, 0.0852516084081619, 0.09872459999999991, 0.029416602001857695, -1.594481385091, -0.5206986962287597]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,0.023446,-0.647277,-0.416507]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,0.017475,0.299927,-0.312314]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,0.011505,1.247132,-0.208122]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,0.005534,2.194336,-0.103930]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 42
+#Linear Pick Pose
+movej(p[-0.187500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,0.025212,2.355071,-0.066166]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,0.050861,1.568602,-0.132594]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,0.076510,0.782133,-0.199023]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,0.102159,-0.004336,-0.265451]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.350000,0.127807,-0.790805,-0.331879]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.272483459403386, 0.0431571402153003, 0.09872459999999991, 0.15345617126337363, -1.577274607399207, -0.3983069805792481]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.750000,0.350000,0.127807,-0.790805,-0.331879]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,0.102159,-0.004336,-0.265451]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,0.076510,0.782133,-0.199023]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,0.050861,1.568602,-0.132594]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,0.025212,2.355071,-0.066166]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 43
+#Linear Pick Pose
+movej(p[-0.187500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,0.008960,2.618197,0.001162]) #pose on a safe path
+movej(p[0.050000,-0.550000,0.150000,0.018355,2.094854,0.002062]) #pose on a safe path
+movej(p[0.150000,-0.650000,0.150000,0.027751,1.571511,0.002962]) #pose on a safe path
+movej(p[0.250000,-0.750000,0.150000,0.037147,1.048168,0.003861]) #pose on a safe path
+movej(p[0.350000,-0.750000,0.150000,0.046543,0.524825,0.004761]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.250000,0.055939,0.001481,0.005661]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.350000,0.065335,-0.521862,0.006561]) #pose on a safe path
+movej(p[0.450000,-0.750000,0.450000,0.074731,-1.045205,0.007461]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.288029576506602, 0.0169859929774772, 0.22307459999999998, 0.08412662854446645, -1.5685480266018956, 0.008360962714810755]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.750000,0.450000,0.074731,-1.045205,0.007461]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.750000,0.350000,0.065335,-0.521862,0.006561]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.750000,0.250000,0.055939,0.001481,0.005661]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.750000,0.150000,0.046543,0.524825,0.004761]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.750000,0.150000,0.037147,1.048168,0.003861]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.650000,0.150000,0.027751,1.571511,0.002962]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.550000,0.150000,0.018355,2.094854,0.002062]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,0.008960,2.618197,0.001162]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 44
+#Linear Pick Pose
+movej(p[-0.187500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,0.026036,2.619701,0.018291]) #pose on a safe path
+movej(p[0.050000,-0.550000,0.150000,0.052508,2.097861,0.036319]) #pose on a safe path
+movej(p[0.150000,-0.650000,0.150000,0.078980,1.576021,0.054348]) #pose on a safe path
+movej(p[0.250000,-0.650000,0.150000,0.105452,1.054181,0.072377]) #pose on a safe path
+movej(p[0.350000,-0.650000,0.150000,0.131924,0.532342,0.090406]) #pose on a safe path
+movej(p[0.450000,-0.650000,0.250000,0.158397,0.010502,0.108435]) #pose on a safe path
+movej(p[0.450000,-0.650000,0.350000,0.184869,-0.511338,0.126464]) #pose on a safe path
+movej(p[0.450000,-0.650000,0.450000,0.211341,-1.033178,0.144492]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.279181366118711, 0.0728513947161838, 0.22307459999999998, 0.23781302767108986, -1.5550175042674461, 0.16252115221266492]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.650000,0.450000,0.211341,-1.033178,0.144492]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.650000,0.350000,0.184869,-0.511338,0.126464]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.650000,0.250000,0.158397,0.010502,0.108435]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.650000,0.150000,0.131924,0.532342,0.090406]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.650000,0.150000,0.105452,1.054181,0.072377]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.650000,0.150000,0.078980,1.576021,0.054348]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.550000,0.150000,0.052508,2.097861,0.036319]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,0.026036,2.619701,0.018291]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 45
+#Linear Pick Pose
+movej(p[-0.187500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.187500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.187500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,0.048454,2.557538,0.039779]) #pose on a safe path
+movej(p[0.050000,-0.550000,0.150000,0.097344,1.973536,0.079296]) #pose on a safe path
+movej(p[0.150000,-0.550000,0.150000,0.146233,1.389534,0.118813]) #pose on a safe path
+movej(p[0.250000,-0.550000,0.150000,0.195123,0.805532,0.158330]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.250000,0.244013,0.221530,0.197846]) #pose on a safe path
+movej(p[0.450000,-0.550000,0.350000,0.292903,-0.362472,0.237363]) #pose on a safe path
+movej(p[0.450000,-0.550000,0.450000,0.341793,-0.946474,0.276880]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.259604372397593, 0.12591715821148, 0.22307459999999998, 0.3906831961763601, -1.5304758024673106, 0.3163972474559583]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.550000,0.450000,0.341793,-0.946474,0.276880]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.550000,0.350000,0.292903,-0.362472,0.237363]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.450000,0.250000,0.244013,0.221530,0.197846]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.550000,0.150000,0.195123,0.805532,0.158330]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.550000,0.150000,0.146233,1.389534,0.118813]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.550000,0.150000,0.097344,1.973536,0.079296]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,0.048454,2.557538,0.039779]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 46
+#Linear Pick Pose
+movej(p[-0.162500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,0.077120,2.479199,0.067326]) #pose on a safe path
+movej(p[0.050000,-0.450000,0.150000,0.154676,1.816857,0.134391]) #pose on a safe path
+movej(p[0.150000,-0.450000,0.150000,0.232233,1.154515,0.201455]) #pose on a safe path
+movej(p[0.250000,-0.350000,0.250000,0.309789,0.492174,0.268520]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.350000,0.387345,-0.170168,0.335585]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.450000,0.464901,-0.832510,0.402649]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.230050928233044, 0.174143995931866, 0.22307459999999998, 0.542457784861218, -1.4948514392276053, 0.4697136728140231]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.350000,-0.450000,0.450000,0.464901,-0.832510,0.402649]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.450000,0.350000,0.387345,-0.170168,0.335585]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.350000,0.250000,0.309789,0.492174,0.268520]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.450000,0.150000,0.232233,1.154515,0.201455]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.450000,0.150000,0.154676,1.816857,0.134391]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,0.077120,2.479199,0.067326]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 47
+#Linear Pick Pose
+movej(p[-0.162500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,0.098604,2.485889,0.089108]) #pose on a safe path
+movej(p[0.050000,-0.450000,0.150000,0.197643,1.830238,0.177954]) #pose on a safe path
+movej(p[0.150000,-0.450000,0.150000,0.296683,1.174587,0.266799]) #pose on a safe path
+movej(p[0.250000,-0.350000,0.250000,0.395723,0.518936,0.355645]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.350000,0.494763,-0.136715,0.444491]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.450000,0.593803,-0.792367,0.533337]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.191656755910547, 0.215678577549668, 0.2230746, 0.6928427778531797, -1.448017805052797, 0.622182862444059]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.350000,-0.450000,0.450000,0.593803,-0.792367,0.533337]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.450000,0.350000,0.494763,-0.136715,0.444491]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.350000,0.250000,0.395723,0.518936,0.355645]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.450000,0.150000,0.296683,1.174587,0.266799]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.450000,0.150000,0.197643,1.830238,0.177954]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,0.098604,2.485889,0.089108]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 48
+#Linear Pick Pose
+movej(p[-0.162500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.350000,0.050000,0.139890,2.386318,0.129135]) #pose on a safe path
+movej(p[0.050000,-0.350000,0.150000,0.280217,1.631096,0.258007]) #pose on a safe path
+movej(p[0.150000,-0.250000,0.250000,0.420543,0.875874,0.386880]) #pose on a safe path
+movej(p[0.250000,-0.350000,0.350000,0.560870,0.120652,0.515753]) #pose on a safe path
+movej(p[0.250000,-0.350000,0.450000,0.701196,-0.634570,0.644626]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.145897321940754, 0.248924752386175, 0.2230746, 0.8415230066283791, -1.3897917841617784, 0.7734988483769363]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.250000,-0.350000,0.450000,0.701196,-0.634570,0.644626]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.350000,0.350000,0.560870,0.120652,0.515753]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.250000,0.250000,0.420543,0.875874,0.386880]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.350000,0.150000,0.280217,1.631096,0.258007]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.350000,0.050000,0.139890,2.386318,0.129135]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 49
+#Linear Pick Pose
+movej(p[-0.162500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.350000,0.050000,0.164329,2.397962,0.154107]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.150000,0.329094,1.654383,0.307951]) #pose on a safe path
+movej(p[0.150000,-0.250000,0.250000,0.493859,0.910804,0.461796]) #pose on a safe path
+movej(p[0.150000,-0.250000,0.350000,0.658625,0.167226,0.615641]) #pose on a safe path
+movej(p[0.150000,-0.250000,0.450000,0.823390,-0.576353,0.769485]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.09453113570893912, 0.272604888587092, 0.2230746, 0.9881549240274631, -1.3199317666296322, 0.9233301388414896]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.150000,-0.250000,0.450000,0.823390,-0.576353,0.769485]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.250000,0.350000,0.658625,0.167226,0.615641]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.250000,0.250000,0.493859,0.910804,0.461796]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.150000,0.329094,1.654383,0.307951]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.350000,0.050000,0.164329,2.397962,0.154107]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 50
+#Linear Pick Pose
+movej(p[-0.162500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.350000,0.050000,0.188363,2.411594,0.178770]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.150000,0.377162,1.681648,0.357278]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.250000,0.565961,0.951703,0.535787]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.350000,0.754760,0.221757,0.714295]) #pose on a safe path
+movej(p[0.050000,-0.250000,0.450000,0.943559,-0.508189,0.892803]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.03953217094550211, 0.285808971798189, 0.2230746, 1.1323583493034741, -1.2381350957001092, 1.0713115960664952]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.050000,-0.250000,0.450000,0.943559,-0.508189,0.892803]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.350000,0.754760,0.221757,0.714295]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.250000,0.565961,0.951703,0.535787]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.250000,0.150000,0.377162,1.681648,0.357278]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.350000,0.050000,0.188363,2.411594,0.178770]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 51
+#Linear Pick Pose
+movej(p[-0.162500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.050000,0.211921,2.427278,0.203057]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.150000,0.424278,1.713015,0.405853]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.250000,0.636635,0.998753,0.608648]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.350000,0.848992,0.284490,0.811444]) #pose on a safe path
+movej(p[-0.050000,-0.250000,0.450000,1.061350,-0.429772,1.014239]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.016985992977475387, 0.2880295765066, 0.2230746, 1.2737068432611085, -1.1440350265561072, 1.2170349693365146]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.250000,0.450000,1.061350,-0.429772,1.014239]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.350000,0.848992,0.284490,0.811444]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.250000,0.636635,0.998753,0.608648]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.150000,0.424278,1.713015,0.405853]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.250000,0.050000,0.211921,2.427278,0.203057]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 52
+#Linear Pick Pose
+movej(p[-0.162500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.050000,0.234922,2.445084,0.226891]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.150000,0.470281,1.748628,0.453520]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.250000,0.705640,1.052171,0.680150]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.350000,0.940999,0.355715,0.906779]) #pose on a safe path
+movej(p[-0.150000,-0.250000,0.450000,1.176358,-0.340741,1.133408]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.07285139471618218, 0.27918136611871, 0.2230746, 1.4117163032333788, -1.0371973263376022, 1.36003766726415]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.150000,-0.250000,0.450000,1.176358,-0.340741,1.133408]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.350000,0.940999,0.355715,0.906779]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.250000,0.705640,1.052171,0.680150]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.150000,0.470281,1.748628,0.453520]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.250000,0.050000,0.234922,2.445084,0.226891]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 53
+#Linear Pick Pose
+movej(p[-0.162500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.350000,0.050000,0.257275,2.465097,0.250183]) #pose on a safe path
+movej(p[-0.250000,-0.350000,0.150000,0.514986,1.788655,0.500104]) #pose on a safe path
+movej(p[-0.250000,-0.350000,0.250000,0.772697,1.112212,0.750026]) #pose on a safe path
+movej(p[-0.250000,-0.350000,0.350000,1.030409,0.435769,0.999947]) #pose on a safe path
+movej(p[-0.250000,-0.350000,0.450000,1.288120,-0.240674,1.249868]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.125917158211479, 0.259604372397592, 0.2230746, 1.545831278296332, -0.9171167315247514, 1.4997892598353764]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.250000,-0.350000,0.450000,1.288120,-0.240674,1.249868]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,0.350000,1.030409,0.435769,0.999947]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,0.250000,0.772697,1.112212,0.750026]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,0.150000,0.514986,1.788655,0.500104]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,0.050000,0.257275,2.465097,0.250183]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 54
+#Linear Pick Pose
+movej(p[-0.162500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.162500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.162500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.350000,0.050000,0.278871,2.487415,0.272831]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.150000,0.558179,1.833289,0.545400]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.250000,0.837486,1.179163,0.817968]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.350000,1.116793,0.525038,1.090537]) #pose on a safe path
+movej(p[-0.350000,-0.350000,0.450000,1.396101,-0.129088,1.363106]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.174143995931864, 0.230050928233043, 0.2230746, 1.6754083931752664, -0.783213614931705, 1.635675082400845]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.350000,-0.350000,0.450000,1.396101,-0.129088,1.363106]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.350000,0.350000,1.116793,0.525038,1.090537]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.350000,0.250000,0.837486,1.179163,0.817968]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.350000,0.150000,0.558179,1.833289,0.545400]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.350000,0.050000,0.278871,2.487415,0.272831]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 55
+#Linear Pick Pose
+movej(p[-0.137500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.450000,0.050000,0.299586,2.512145,0.294714]) #pose on a safe path
+movej(p[-0.350000,-0.450000,0.150000,0.599608,1.882750,0.589167]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.250000,0.899630,1.253354,0.883619]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.350000,1.199652,0.623959,1.178071]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.450000,1.499674,-0.005436,1.472524]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.215678577549666, 0.191656755910546, 0.2230746, 1.7996961333017134, -0.6348314258616327, 1.7669761677567295]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.450000,-0.450000,0.450000,1.499674,-0.005436,1.472524]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.450000,0.350000,1.199652,0.623959,1.178071]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.450000,0.250000,0.899630,1.253354,0.883619]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.450000,0.150000,0.599608,1.882750,0.589167]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,0.050000,0.299586,2.512145,0.294714]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 56
+#Linear Pick Pose
+movej(p[-0.137500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.550000,0.050000,0.319271,2.539411,0.315692]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.150000,0.638979,1.937282,0.631123]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.250000,0.958687,1.335152,0.946553]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.350000,1.278395,0.733023,1.261984]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.450000,1.598102,0.130894,1.577414]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.248924752386174, 0.145897321940753, 0.22307460000000004, 1.9178100851099054, -0.471235791222488, 1.8928445586305669]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.550000,0.450000,1.598102,0.130894,1.577414]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.550000,0.350000,1.278395,0.733023,1.261984]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.450000,0.250000,0.958687,1.335152,0.946553]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.150000,0.638979,1.937282,0.631123]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,0.050000,0.319271,2.539411,0.315692]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 57
+#Linear Pick Pose
+movej(p[-0.137500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.550000,0.050000,0.289441,2.651089,0.287692]) #pose on a safe path
+movej(p[-0.350000,-0.650000,0.150000,0.579318,2.160638,0.575122]) #pose on a safe path
+movej(p[-0.450000,-0.650000,0.150000,0.869195,1.670187,0.862552]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.250000,1.159072,1.179736,1.149982]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.350000,1.448949,0.689285,1.437413]) #pose on a safe path
+movej(p[-0.550000,-0.650000,0.450000,1.738826,0.198834,1.724843]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.272604888587091, 0.0945311357089381, 0.22307460000000004, 2.028702553529047, -0.2916166582968375, 2.0122728571780106]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.650000,0.450000,1.738826,0.198834,1.724843]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.650000,0.350000,1.448949,0.689285,1.437413]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.650000,0.250000,1.159072,1.179736,1.149982]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.650000,0.150000,0.869195,1.670187,0.862552]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.650000,0.150000,0.579318,2.160638,0.575122]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,0.050000,0.289441,2.651089,0.287692]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 58
+#Linear Pick Pose
+movej(p[-0.137500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.550000,0.050000,-0.313448,2.683525,-0.312849]) #pose on a safe path
+movej(p[-0.350000,-0.650000,0.150000,-0.626459,2.225510,-0.625960]) #pose on a safe path
+movej(p[-0.450000,-0.750000,0.150000,-0.939470,1.767496,-0.939071]) #pose on a safe path
+movej(p[-0.550000,-0.850000,0.250000,-1.252482,1.309481,-1.252182]) #pose on a safe path
+movej(p[-0.550000,-0.850000,0.350000,-1.565493,0.851466,-1.565294]) #pose on a safe path
+movej(p[-0.550000,-0.850000,0.450000,-1.878504,0.393451,-1.878405]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.254268233570153, 0.0149949823979939, 0.22307459999999998, -2.1915156886990945, -0.06456413459268513, -2.191515688699095]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.850000,0.450000,-1.878504,0.393451,-1.878405]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.850000,0.350000,-1.565493,0.851466,-1.565294]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.850000,0.250000,-1.252482,1.309481,-1.252182]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.750000,0.150000,-0.939470,1.767496,-0.939071]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.650000,0.150000,-0.626459,2.225510,-0.625960]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,0.050000,-0.313448,2.683525,-0.312849]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 59
+#Linear Pick Pose
+movej(p[-0.137500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.550000,0.050000,-0.298291,2.654519,-0.297693]) #pose on a safe path
+movej(p[-0.350000,-0.650000,0.150000,-0.596146,2.167497,-0.595647]) #pose on a safe path
+movej(p[-0.450000,-0.750000,0.150000,-0.894001,1.680475,-0.893602]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.250000,-1.191856,1.193454,-1.191557]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.350000,-1.489711,0.706432,-1.489511]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.450000,-1.787565,0.219411,-1.787466]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.246457164815086, 0.064312129581531, 0.22307459999999998, -2.085420327461898, -0.2676109524876253, -2.085420327461898]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.750000,0.450000,-1.787565,0.219411,-1.787466]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.750000,0.350000,-1.489711,0.706432,-1.489511]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.750000,0.250000,-1.191856,1.193454,-1.191557]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.750000,0.150000,-0.894001,1.680475,-0.893602]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.650000,0.150000,-0.596146,2.167497,-0.595647]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.550000,0.050000,-0.298291,2.654519,-0.297693]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 60
+#Linear Pick Pose
+movej(p[-0.137500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,-0.281914,2.628074,-0.281315]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.563391,2.114607,-0.562892]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.844868,1.601141,-0.844469]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-1.126345,1.087674,-1.126046]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.350000,-1.407822,0.574207,-1.407623]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.450000,-1.689300,0.060741,-1.689200]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.229174885430945, 0.111157797691908, 0.22307459999999998, -1.9707767871030888, -0.4527258734308503, -1.9707767871030888]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.850000,0.450000,-1.689300,0.060741,-1.689200]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.850000,0.350000,-1.407822,0.574207,-1.407623]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-1.126345,1.087674,-1.126046]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.844868,1.601141,-0.844469]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.563391,2.114607,-0.562892]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,-0.281914,2.628074,-0.281315]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 61
+#Linear Pick Pose
+movej(p[-0.137500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,-0.264508,2.604050,-0.263910]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.528580,2.066560,-0.528082]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.792652,1.529070,-0.792254]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-1.056724,0.991580,-1.056425]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.350000,-1.320797,0.454090,-1.320597]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.450000,-1.584869,-0.083400,-1.584769]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.20308554372245, 0.153731733974995, 0.2230746, -1.8489406045997687, -0.6208903713886421, -1.8489406045997687]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.850000,0.450000,-1.584869,-0.083400,-1.584769]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.850000,0.350000,-1.320797,0.454090,-1.320597]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-1.056724,0.991580,-1.056425]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.792652,1.529070,-0.792254]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.528580,2.066560,-0.528082]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,-0.264508,2.604050,-0.263910]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 62
+#Linear Pick Pose
+movej(p[-0.137500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.450000,0.050000,-0.215512,2.652221,-0.214901]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.150000,-0.430588,2.162901,-0.430064]) #pose on a safe path
+movej(p[-0.450000,-0.650000,0.150000,-0.645663,1.673582,-0.645227]) #pose on a safe path
+movej(p[-0.550000,-0.750000,0.250000,-0.860739,1.184262,-0.860390]) #pose on a safe path
+movej(p[-0.550000,-0.850000,0.350000,-1.075815,0.694943,-1.075553]) #pose on a safe path
+movej(p[-0.550000,-0.950000,0.450000,-1.290890,0.205623,-1.290716]) #pose on a safe path
+movej(p[-0.450000,-1.050000,0.450000,-1.505966,-0.283696,-1.505879]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.169191738460386, 0.190397845935174, 0.2230746, -1.7210415923360323, -0.7730154944298299, -1.7210415923360323]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.450000,-1.050000,0.450000,-1.505966,-0.283696,-1.505879]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.950000,0.450000,-1.290890,0.205623,-1.290716]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.850000,0.350000,-1.075815,0.694943,-1.075553]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.750000,0.250000,-0.860739,1.184262,-0.860390]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.650000,0.150000,-0.645663,1.673582,-0.645227]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.150000,-0.430588,2.162901,-0.430064]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,0.050000,-0.215512,2.652221,-0.214901]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 63
+#Linear Pick Pose
+movej(p[-0.137500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.137500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.137500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.450000,0.050000,-0.265035,2.466295,-0.264453]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.150000,-0.529633,1.791050,-0.529168]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.250000,-0.794232,1.115804,-0.793882]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.350000,-1.058830,0.440559,-1.058597]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.450000,-1.323428,-0.234686,-1.323312]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.12879598957311, 0.219747075452405, 0.2230746, -1.5880267736332976, -0.9099316535694142, -1.5880267736332976]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.550000,0.450000,-1.323428,-0.234686,-1.323312]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.550000,0.350000,-1.058830,0.440559,-1.058597]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.450000,0.250000,-0.794232,1.115804,-0.793882]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.150000,-0.529633,1.791050,-0.529168]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,0.050000,-0.265035,2.466295,-0.264453]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 64
+#Linear Pick Pose
+movej(p[-0.112500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.500000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.500000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.650000,0.050000,-0.207616,2.545265,-0.207018]) #pose on a safe path
+movej(p[-0.350000,-0.750000,0.150000,-0.414796,1.948990,-0.414297]) #pose on a safe path
+movej(p[-0.450000,-0.850000,0.150000,-0.621976,1.352715,-0.621577]) #pose on a safe path
+movej(p[-0.550000,-0.950000,0.250000,-0.829156,0.756440,-0.828857]) #pose on a safe path
+movej(p[-0.450000,-1.050000,0.350000,-1.036336,0.160165,-1.036136]) #pose on a safe path
+movej(p[-0.450000,-1.050000,0.450000,-1.243515,-0.436110,-1.243416]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.08345068303616202, 0.240651548095581, 0.2230746, -1.4506952566453797, -1.0323851258878947, -1.45069525664538]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.450000,-1.050000,0.450000,-1.243515,-0.436110,-1.243416]) #pose on a safe path (reverse)
+movej(p[-0.450000,-1.050000,0.350000,-1.036336,0.160165,-1.036136]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.950000,0.250000,-0.829156,0.756440,-0.828857]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.850000,0.150000,-0.621976,1.352715,-0.621577]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.750000,0.150000,-0.414796,1.948990,-0.414297]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.650000,0.050000,-0.207616,2.545265,-0.207018]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.550000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 65
+#Linear Pick Pose
+movej(p[-0.112500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.475000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.475000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,-0.164098,2.606218,-0.163487]) #pose on a safe path
+movej(p[0.050000,-0.650000,0.150000,-0.327759,2.070896,-0.327235]) #pose on a safe path
+movej(p[0.150000,-0.750000,0.150000,-0.491420,1.535573,-0.490984]) #pose on a safe path
+movej(p[0.250000,-0.850000,0.150000,-0.655081,1.000251,-0.654732]) #pose on a safe path
+movej(p[0.350000,-0.950000,0.250000,-0.818743,0.464929,-0.818481]) #pose on a safe path
+movej(p[0.350000,-0.950000,0.350000,-0.982404,-0.070394,-0.982229]) #pose on a safe path
+movej(p[0.350000,-0.950000,0.450000,-1.146065,-0.605716,-1.145978]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[0.034898413549817514, 0.252307916704386, 0.2230746, -1.3097264999834217, -1.1410385513765418, -1.309726499983422]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.350000,-0.950000,0.450000,-1.146065,-0.605716,-1.145978]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.950000,0.350000,-0.982404,-0.070394,-0.982229]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.950000,0.250000,-0.818743,0.464929,-0.818481]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.850000,0.150000,-0.655081,1.000251,-0.654732]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.750000,0.150000,-0.491420,1.535573,-0.490984]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.650000,0.150000,-0.327759,2.070896,-0.327235]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,-0.164098,2.606218,-0.163487]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 66
+#Linear Pick Pose
+movej(p[-0.112500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.450000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.450000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,-0.194647,2.411871,-0.194066]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.388859,1.682202,-0.388393]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.583070,0.952533,-0.582721]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.350000,-0.777281,0.222864,-0.777048]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.450000,-0.971492,-0.506805,-0.971376]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.014994982397992187, 0.254268233570152, 0.2230746, -1.16570324355246, -1.236473657637859, -1.1657032435524601]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.850000,0.450000,-0.971492,-0.506805,-0.971376]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.850000,0.350000,-0.777281,0.222864,-0.777048]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.583070,0.952533,-0.582721]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.388859,1.682202,-0.388393]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,-0.194647,2.411871,-0.194066]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 67
+#Linear Pick Pose
+movej(p[-0.112500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.425000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.425000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,-0.127773,2.583948,-0.127162]) #pose on a safe path
+movej(p[0.050000,-0.650000,0.150000,-0.255110,2.026356,-0.254586]) #pose on a safe path
+movej(p[0.150000,-0.750000,0.150000,-0.382447,1.468765,-0.382010]) #pose on a safe path
+movej(p[0.250000,-0.850000,0.150000,-0.509783,0.911173,-0.509434]) #pose on a safe path
+movej(p[0.350000,-0.950000,0.250000,-0.637120,0.353581,-0.636858]) #pose on a safe path
+movej(p[0.450000,-0.850000,0.350000,-0.764457,-0.204011,-0.764282]) #pose on a safe path
+movej(p[0.450000,-0.850000,0.450000,-0.891793,-0.761603,-0.891706]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.06431212958152939, 0.246457164815085, 0.2230746, -1.0191301769634789, -1.3191950804904913, -1.019130176963479]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.850000,0.450000,-0.891793,-0.761603,-0.891706]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.850000,0.350000,-0.764457,-0.204011,-0.764282]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.950000,0.250000,-0.637120,0.353581,-0.636858]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.850000,0.150000,-0.509783,0.911173,-0.509434]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.750000,0.150000,-0.382447,1.468765,-0.382010]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.650000,0.150000,-0.255110,2.026356,-0.254586]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,-0.127773,2.583948,-0.127162]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 68
+#Linear Pick Pose
+movej(p[-0.112500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.400000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.400000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.050000,-0.124724,2.494230,-0.124125]) #pose on a safe path
+movej(p[0.050000,-0.650000,0.150000,-0.249011,1.846919,-0.248513]) #pose on a safe path
+movej(p[0.150000,-0.750000,0.150000,-0.373299,1.199608,-0.372900]) #pose on a safe path
+movej(p[0.050000,-0.850000,0.250000,-0.497587,0.552298,-0.497287]) #pose on a safe path
+movej(p[0.150000,-0.950000,0.350000,-0.621874,-0.095013,-0.621675]) #pose on a safe path
+movej(p[0.250000,-0.950000,0.450000,-0.746162,-0.742324,-0.746062]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.11115779769190598, 0.229174885430944, 0.2230746, -0.8704492286381109, -1.3896345652604656, -0.8704492286381109]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.250000,-0.950000,0.450000,-0.746162,-0.742324,-0.746062]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.950000,0.350000,-0.621874,-0.095013,-0.621675]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.850000,0.250000,-0.497587,0.552298,-0.497287]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.750000,0.150000,-0.373299,1.199608,-0.372900]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.650000,0.150000,-0.249011,1.846919,-0.248513]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.050000,-0.124724,2.494230,-0.124125]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.450000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 69
+#Linear Pick Pose
+movej(p[-0.112500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.375000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.375000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,-0.090388,2.567828,-0.089777]) #pose on a safe path
+movej(p[0.050000,-0.550000,0.150000,-0.180340,1.994116,-0.179817]) #pose on a safe path
+movej(p[0.150000,-0.550000,0.150000,-0.270292,1.420405,-0.269856]) #pose on a safe path
+movej(p[0.250000,-0.550000,0.150000,-0.360244,0.846693,-0.359895]) #pose on a safe path
+movej(p[0.350000,-0.450000,0.250000,-0.450196,0.272981,-0.449934]) #pose on a safe path
+movej(p[0.450000,-0.550000,0.350000,-0.540148,-0.300731,-0.539974]) #pose on a safe path
+movej(p[0.450000,-0.550000,0.450000,-0.630100,-0.874443,-0.630013]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.153731733974994, 0.203085543722449, 0.2230746, -0.7200521944817518, -1.4481551048683474, -0.7200521944817518]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.450000,-0.550000,0.450000,-0.630100,-0.874443,-0.630013]) #pose on a safe path (reverse)
+movej(p[0.450000,-0.550000,0.350000,-0.540148,-0.300731,-0.539974]) #pose on a safe path (reverse)
+movej(p[0.350000,-0.450000,0.250000,-0.450196,0.272981,-0.449934]) #pose on a safe path (reverse)
+movej(p[0.250000,-0.550000,0.150000,-0.360244,0.846693,-0.359895]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.550000,0.150000,-0.270292,1.420405,-0.269856]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.550000,0.150000,-0.180340,1.994116,-0.179817]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,-0.090388,2.567828,-0.089777]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 70
+#Linear Pick Pose
+movej(p[-0.112500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.350000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.350000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,-0.071418,2.561966,-0.070807]) #pose on a safe path
+movej(p[0.050000,-0.550000,0.150000,-0.142400,1.982392,-0.141876]) #pose on a safe path
+movej(p[0.150000,-0.650000,0.150000,-0.213382,1.402817,-0.212946]) #pose on a safe path
+movej(p[0.150000,-0.750000,0.150000,-0.284364,0.823243,-0.284015]) #pose on a safe path
+movej(p[0.050000,-0.850000,0.250000,-0.355346,0.243668,-0.355084]) #pose on a safe path
+movej(p[0.150000,-0.950000,0.350000,-0.426328,-0.335906,-0.426153]) #pose on a safe path
+movej(p[0.150000,-0.950000,0.450000,-0.497309,-0.915480,-0.497222]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.190397845935172, 0.169191738460385, 0.2230746, -0.56829128896447, -1.4950547455597318, -0.56829128896447]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[0.150000,-0.950000,0.450000,-0.497309,-0.915480,-0.497222]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.950000,0.350000,-0.426328,-0.335906,-0.426153]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.850000,0.250000,-0.355346,0.243668,-0.355084]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.750000,0.150000,-0.284364,0.823243,-0.284015]) #pose on a safe path (reverse)
+movej(p[0.150000,-0.650000,0.150000,-0.213382,1.402817,-0.212946]) #pose on a safe path (reverse)
+movej(p[0.050000,-0.550000,0.150000,-0.142400,1.982392,-0.141876]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,-0.071418,2.561966,-0.070807]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 71
+#Linear Pick Pose
+movej(p[-0.112500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.325000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.325000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.250000,-0.450000,0.050000,-0.069612,2.362855,-0.069030]) #pose on a safe path
+movej(p[-0.350000,-0.550000,0.150000,-0.138787,1.584170,-0.138321]) #pose on a safe path
+movej(p[-0.450000,-0.450000,0.250000,-0.207962,0.805485,-0.207613]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.350000,-0.277138,0.026800,-0.276905]) #pose on a safe path
+movej(p[-0.550000,-0.550000,0.450000,-0.346313,-0.751885,-0.346196]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.219747075452404, 0.128795989573109, 0.2230746, -0.41548809228143163, -1.530569902079518, -0.41548809228143163]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.550000,-0.550000,0.450000,-0.346313,-0.751885,-0.346196]) #pose on a safe path (reverse)
+movej(p[-0.550000,-0.550000,0.350000,-0.277138,0.026800,-0.276905]) #pose on a safe path (reverse)
+movej(p[-0.450000,-0.450000,0.250000,-0.207962,0.805485,-0.207613]) #pose on a safe path (reverse)
+movej(p[-0.350000,-0.550000,0.150000,-0.138787,1.584170,-0.138321]) #pose on a safe path (reverse)
+movej(p[-0.250000,-0.450000,0.050000,-0.069612,2.362855,-0.069030]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#
+##Handling FW51528_D__BUSH_BEARING;0;92: Number 72
+#Linear Pick Pose
+movej(p[-0.112500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#linear Move
+movel(p[-0.112500,-0.300000,0.000000,-0.000436,3.141540,0.000262]) #Final Pick Pose
+GRIPPER_ACTION.script
+#back to Linear Pick Pose
+movej(p[-0.112500,-0.300000,0.050000,-0.000436,3.141540,0.000262]) #Linear Pick Pose
+#Safe move to pre-target position
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path
+movej(p[-0.050000,-0.450000,0.050000,-0.037794,2.470623,-0.037196]) #pose on a safe path
+movej(p[-0.050000,-0.550000,0.150000,-0.075152,1.799706,-0.074653]) #pose on a safe path
+movej(p[-0.050000,-0.650000,0.150000,-0.112510,1.128790,-0.112111]) #pose on a safe path
+movej(p[-0.050000,-0.750000,0.250000,-0.149868,0.457873,-0.149569]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.350000,-0.187226,-0.213044,-0.187026]) #pose on a safe path
+movej(p[-0.050000,-0.850000,0.450000,-0.224583,-0.883961,-0.224484]) #pose on a safe path
+#moving to a linear position before target position
+movej(pose_trans(pose_add(Preal,p[-0.240651548095579, 0.083450683036161, 0.22307460000000004, -0.26194128189867927, -1.554878093151675, -0.26194128189867927]),p[0,0,-0.03,0,0,0])) #pose before insertion
+#Perform the operation Skill
+exec_spiral_searchV7.script
+movel(pose_trans(get_actual_tcp_pose(),p[0,0,-0.03,0,0,0])) #back off linear after insertion
+#Safe move back to pick-up position
+movej(p[-0.050000,-0.850000,0.450000,-0.224583,-0.883961,-0.224484]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.850000,0.350000,-0.187226,-0.213044,-0.187026]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.750000,0.250000,-0.149868,0.457873,-0.149569]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.650000,0.150000,-0.112510,1.128790,-0.112111]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.550000,0.150000,-0.075152,1.799706,-0.074653]) #pose on a safe path (reverse)
+movej(p[-0.050000,-0.450000,0.050000,-0.037794,2.470623,-0.037196]) #pose on a safe path (reverse)
+movej(p[-0.150000,-0.350000,-0.050000,-0.000436,3.141540,0.000262]) #pose on a safe path (reverse)
+#
+#
+#

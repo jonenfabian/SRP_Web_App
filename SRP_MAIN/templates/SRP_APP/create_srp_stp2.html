@@ -1,0 +1,45 @@
+{% extends 'SRP_MAIN/base.html' %}
+{% block content %}
+{% load static %}
+{# Intro #}
+<div class=" pt-5">
+
+</div>
+<div class=" pt-4">
+
+</div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">New SRP</h1>
+    <p class="lead">Create a new Synthetic Robot Program with ease.</p>
+
+  </div>
+</div>
+
+{# Step1 #}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Step 1</h1>
+    <p class="lead">Upload the Fitting Instruction</p>
+    <p>Success! Continue with Step 2</p>
+  </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container" style=paddin>
+    <h1 class="display-4">Step 2</h1>
+    <p class="lead">Insert the custom database if new parts are processed</p>
+    <a class="btn btn-outline-primary" href="#" role="button">Need Help</a>
+    <a class="btn btn-outline-secondary" href="#" role="button">View Existing Databases</a>
+    <a class="btn btn-outline-success" href="{% url 'cluster_success' %}" role="button">No New Databases Required (skip)</a>
+  </div>
+  <div class="container">
+    <form method = "POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,194 @@
+  rq_ins_speed_setting=0.005
+#****************************************************************************************************************
+  # FUNCTION:    rq_insert_spiral_fjonen(direction="Z",force_threshold = 3, max_radius = 5.0, radius_incr=0.3, peck_mode = False)
+# final move weggelassen
+  #****************************************************************************************************************
+  def rq_insert_spiral_fjonen(direction="Z+",stop_force_threshold = 3, max_radius = 5.0, radius_incr=0.3, peck_mode = False):
+  
+    if (stop_force_threshold < 0) or (stop_force_threshold > 40):
+      popup("stop_force_threshold parameter in Newton must be between 0 and 40","ERROR rq_insert_spiral_fjonen")
+      halt
+    else:
+      if (max_radius < 0.5) or (max_radius > 10):
+        popup("max_radius parameter in mm must be between 0.5mm and 10mm","ERROR rq_insert_spiral_fjonen")
+        halt
+      else:
+        if (radius_incr < 0.01) or (radius_incr > 5.0):
+        popup("radius_incr parameter in mm must be between 0.01mm and 5mm","ERROR rq_insert_spiral_fjonen")
+        halt
+        else:
+        rq_spiral_not_completed=False
+        max_radius_set = max_radius / 1000
+        ins_angle_incr=12.5
+        radius_inc_set = radius_incr / 1000 / (360 / ins_angle_incr)
+        ins_actual_radius=0.0001  #Start radius
+  
+  
+        ins_x=0
+        ins_y=0
+        ins_z=0
+        ins_pose=p[0,0,0,0,0,0]
+        ins_current_pos=p[0,0,0,0,0,0]
+        ins_actual_angle=0
+        ins_search_result = False
+        ins_radius_inc_per_deg=radius_inc_set/ins_angle_incr
+        ins_PI=3.14159
+        ins_arc_length=((ins_angle_incr*2*ins_PI*radius_inc_set)/360)*100
+        ins_desired_arc_length = rq_ins_speed_setting * rq_controller_time_step
+  
+        direction = ins_ucase_direction_urcap(direction)
+  
+        sync()
+        #Find the bore of the part
+        ins_current_pos=get_actual_tcp_pose()
+        textmsg("Spiral search")
+        sync()
+
+        #********************************************************************************************************************
+        #Spiral Search using any Axis
+        #
+        #********************************************************************************************************************
+        while ((ins_actual_radius <= max_radius_set) and (ins_actual_force_urcap("Z+") >= stop_force_threshold) and (ins_actual_torque_urcap("X")<=2)):
+          #By default, the Spiral_Search function will maintain contact between both mating parts at all times
+          if (peck_mode == False):
+            #standard method
+            #--------------------------------------------------------------------------------------------------------------------
+            #For Spiral Search in the Z axis
+            #--------------------------------------------------------------------------------------------------------------------
+            if ((direction == "Z+") or (direction == "Z-")):
+              ins_x=cos(d2r(ins_actual_angle))*ins_actual_radius
+              ins_y=sin(d2r(ins_actual_angle))*ins_actual_radius
+              ins_pose[0] = ins_x
+              ins_pose[1] = ins_y
+            #--------------------------------------------------------------------------------------------------------------------
+            #For Spiral Search in the X axis
+            #--------------------------------------------------------------------------------------------------------------------
+            elif ((direction == "X+") or (direction == "X-")):
+              ins_z=cos(d2r(ins_actual_angle))*ins_actual_radius
+              ins_y=sin(d2r(ins_actual_angle))*ins_actual_radius
+              ins_pose[2] = ins_z
+              ins_pose[1] = ins_y
+            #--------------------------------------------------------------------------------------------------------------------
+            #For Spiral Search in the Y axis
+            #--------------------------------------------------------------------------------------------------------------------
+            elif ((direction == "Y+")or (direction == "Y-")):
+              ins_x=cos(d2r(ins_actual_angle))*ins_actual_radius
+              ins_z=sin(d2r(ins_actual_angle))*ins_actual_radius
+              ins_pose[0] = ins_x
+              ins_pose[2] = ins_z
+            end
+  
+  
+            ins_actual_angle = ins_actual_angle + (360 * ins_desired_arc_length) / (2 * ins_PI * ins_actual_radius)
+  
+            ins_actual_radius=ins_actual_angle*ins_radius_inc_per_deg
+            next_pos=pose_trans(ins_current_pos,ins_pose)
+  
+            current_joint_pos=get_inverse_kin(next_pos)
+            next_joint_pos=get_inverse_kin(next_pos)
+            servoj(next_joint_pos,0.1, 0.1, rq_controller_time_step, 0.05, 500)
+            #Operator enables "Peck Mode", the robot will retreat in the Z axis before moving to the next point
+          else:
+            #Fragile mode, the robot rises between each new point
+            #Retreat from position
+            if (direction == "Z+"):
+              ins_pose[2]= -0.002
+            elif (direction == "X+"):
+              ins_pose[0]= -0.002
+            elif (direction == "Y+"):
+              ins_pose[1]= -0.002
+            end
+            if (direction == "Z-"):
+              ins_pose[2]= 0.002
+            elif (direction == "X-"):
+              ins_pose[0]= 0.002
+            elif (direction == "Y-"):
+              ins_pose[1]= 0.002
+            end
+  
+            next_pos=pose_trans(ins_current_pos,ins_pose)
+            movej(next_pos)
+            sleep(0.1)
+            #move to a new coordinate
+            #ins_actual_angle=ins_actual_angle+ins_angle_incr
+            ins_desired_arc_length = 0.0005
+            ins_actual_angle = ins_actual_angle + (360 * ins_desired_arc_length) / (2 * ins_PI * ins_actual_radius)
+  
+  
+            if ((direction == "Z+") or (direction == "Z-")):
+              ins_x=cos(d2r(ins_actual_angle))*ins_actual_radius
+              ins_y=sin(d2r(ins_actual_angle))*ins_actual_radius
+              ins_pose[0] = ins_x
+              ins_pose[1] = ins_y
+            elif ((direction == "X+") or (direction == "X-")):
+              ins_z=cos(d2r(ins_actual_angle))*ins_actual_radius
+              ins_y=sin(d2r(ins_actual_angle))*ins_actual_radius
+              ins_pose[2] = ins_z
+              ins_pose[1] = ins_y
+            elif ((direction == "Y+") or (direction == "Y-")):
+              ins_x=cos(d2r(ins_actual_angle))*ins_actual_radius
+              ins_z=sin(d2r(ins_actual_angle))*ins_actual_radius
+              ins_pose[0] = ins_x
+              ins_pose[2] = ins_z
+            end
+            ins_actual_radius=ins_actual_angle*ins_radius_inc_per_deg
+  
+  
+            next_pos=pose_trans(ins_current_pos,ins_pose)
+            movej(next_pos)
+            sleep(0.1)
+            #Re-establish contact with the part
+  
+            if (direction == "Z+"):
+              ins_pose[2]= 0.0005
+            elif (direction == "X+"):
+              ins_pose[0]= 0.0005
+            elif (direction == "Y+"):
+              ins_pose[1]= 0.0005
+            end
+             if (direction == "Z-"):
+              ins_pose[2]= -0.0005
+            elif (direction == "X-"):
+              ins_pose[0]= -0.0005
+            elif (direction == "Y-"):
+              ins_pose[1]= -0.0005
+            end
+  
+            next_pos=pose_trans(ins_current_pos,ins_pose)
+            movel(next_pos, a=0.6, v=rq_ins_speed_setting)
+            sleep(0.2)
+          end
+        end
+        if (ins_actual_radius <= max_radius_set ):
+          ins_search_result = True
+          #Final Insert the Part into the bore#
+          #ins_finish_move_jonen(direction)
+        else:
+          ins_search_result = False
+          rq_spiral_not_completed = True
+        end
+        stopj(2)
+        return ins_search_result
+        end
+      end
+    end
+  end
+  
+  def ins_finish_move_jonen(direction = "Z+"):
+    ins_current_pos=p[0,0,0,0,0,0]
+    rq_ins_offset=p[0,0,0,0,0,0]
+    ins_pose=p[0,0,0,0,0,0]
+    ins_current_pos=get_actual_tcp_pose()
+    rq_actual_to_destination = p[0.007,0.007,0.007,0,0,0]
+  
+  
+    if (direction == "Z+") or (direction == "Z-"):
+      rq_ins_offset=p[0,0,rq_actual_to_destination[2],0,0,0]
+    elif (direction == "X+") or (direction == "X-"):
+      rq_ins_offset=p[rq_actual_to_destination[0],0,0,0,0,0]
+    elif (direction =="Y+") or (direction =="Y-"):
+      rq_ins_offset=p[0,rq_actual_to_destination[1],0,0,0,0]
+    end
+    ins_pose=pose_trans(ins_current_pos,rq_ins_offset)
+    movel(ins_pose, a=0.05, v=rq_ins_speed_setting)
+  end

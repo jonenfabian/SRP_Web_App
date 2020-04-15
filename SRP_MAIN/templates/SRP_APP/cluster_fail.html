@@ -1,0 +1,23 @@
+{% extends 'SRP_MAIN/base.html' %}
+{% block content %}
+{% load static %}
+<div class=" pt-5">
+
+</div>
+<div class=" pt-4">
+
+</div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Failure.</h1>
+    <p class="lead">The cluster for the SRP has not been created.</p>
+    <p class="lead">Next step:</p>
+    <p class="lead">Check the digitized fitting instruction below.</p>
+
+  </div>
+</div>
+<div class="container">
+  {{ inject_used_fi }}
+
+</div>
+{% endblock %}

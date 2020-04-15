@@ -1,0 +1,52 @@
+{% extends 'SRP_MAIN/base.html' %}
+{% block content %}
+{% load static %}
+<div class=" pt-5">
+
+</div>
+<div class=" pt-4">
+
+</div>
+<div class="row">
+  <div class="jumbotron jumbotron-fluid col-sm-6 px-4">
+    <div>
+      <div class="container">
+        <h1 class="display-4">Success.</h1>
+        <p class="lead">The cluster for the SRP has been created.</p>
+        <p class="lead">Next step:</p>
+        <a class="btn btn-outline-success" href="{% url 'create_srp_stp3' %}" role="button">Go To Step 3</a>
+      </div>
+    </div>
+  </div>
+
+    <div class="jumbotron jumbotron-fluid col-sm-6 px-4">
+      <div>
+        <div class="container">
+          <h1 >Cluster Preview.</h1>
+          <p class="lead">Find below some extracted data from the fitting instructions. Waypoints and poses are not displayed.</p>
+          <div class="cluster data">
+            {% for procedure in inject_used_fi.cluster %}
+              {% for key in procedure%}
+              {{ key }}
+              {% endfor %}
+              {% for key,value in procedure.items%}
+                <ul>
+                {% for key2,value2 in value.items%}
+                  {% if key2 in inject_used_fi.filter_list%}
+                <li>{{ key2 }}: {{ value2 }}</li>
+                  {%endif%}
+                {% endfor %}
+                </ul>
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

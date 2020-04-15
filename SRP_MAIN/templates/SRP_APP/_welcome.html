@@ -1,0 +1,45 @@
+{% extends 'SRP_MAIN/base.html' %}
+{% block content %}
+{% load static %}
+{# Carousel #}
+
+<div style="background-image: {% static '1.png' %} padding: 800px">
+
+</div>
+
+{# Card Group #}
+
+<div class="card-group">
+  <div class="card">
+    <img src="{% static '1.png' %}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Generate New</h5>
+      <p class="card-text">Create a new synthetic robot program with digital fitting instructions, BOM's and skill databases.</p>
+    </div>
+    <div class="card-footer text-center">
+      <a href="{% url 'create_srp_stp1' %}" class="btn btn-primary">Generate New</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="{% static '2.png' %}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">View SRP</h5>
+      <p class="card-text">Revise settings of existing synthetic robot programs.</p>
+    </div>
+    <div class="card-footer text-center">
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+  <div class="card">
+    <img src="{% static '3.png' %}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Start SRP</h5>
+      <p class="card-text">Connect to a robot and start a synthetic robot program manually.</p>
+    </div>
+    <div class="card-footer text-center">
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

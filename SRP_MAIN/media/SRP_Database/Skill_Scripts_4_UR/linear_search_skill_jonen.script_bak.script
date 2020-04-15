@@ -1,0 +1,71 @@
+  #************************************************
+  #Function:  rq_lin_search_fjonen(direction="Z+", force[N], speed[mm/s])
+  #   Find a specific force in the direction of "direction".
+  #************************************************
+  def rq_lin_search_fjonen(direction="Z+",force = 3, speed = 2.0 ):
+    rq_ins_start_pose = get_actual_tcp_pose()
+    rq_actual_to_destination = pose_trans (rq_ins_start_pose,p[0.007,0.007,0.007,0,0,0]) #Robot moves maximum 7mm
+    direction = ins_ucase_direction_urcap(direction)
+    if (direction == "X+"):
+      rq_ins_offset = p[rq_actual_to_destination[0],0,0,0,0,0]
+    elif (direction == "Y+"):
+      rq_ins_offset = p[0,rq_actual_to_destination[1],0,0,0,0]
+    elif (direction == "Z+"):
+      rq_ins_offset = p[0,0,rq_actual_to_destination[2],0,0,0]
+	elif (direction == "X-"):
+      rq_ins_offset = p[-rq_actual_to_destination[0],0,0,0,0,0]
+	elif (direction == "Y-"):
+      rq_ins_offset = p[0,-rq_actual_to_destination[1],0,0,0,0]
+    elif (direction == "Z-"):
+      rq_ins_offset = p[0,0,-rq_actual_to_destination[2],0,0,0]
+    else:
+      popup("direction parameter must be X+, X-, Y+, Y-, Z+ or Z-","ERROR rq_lin_search_urcap")
+      halt
+    end
+    rq_ins_speed_setting = speed/1000
+    #The funtion will return the value True if the force is detected during the motion
+    global rq_lin_find_something = True
+    #Parameters validation
+    if ((speed > 0) and (speed <= 20.0)):
+      if ((force > 0) and (force < 150)):
+        #Define a thread to perform the robot motion.
+        #this thread will be stopped if the force is reached
+        global thread_lin_flag = 0
+        thread thread_lin():
+          #Calculate the position at the max distance to go
+  
+          pose_temp = pose_trans(rq_ins_start_pose,rq_ins_offset)
+          #Move the robot to that position
+          movel(pose_temp, a=1.2, v=rq_ins_speed_setting)
+          #If the program reaches this line, the force has not been detected during the motion
+          #The function will return the value False
+          rq_lin_find_something = False
+          thread_lin_flag = 1
+        end
+  
+        #Run the thread to move the robot and continuously check the force measured
+        if (ins_actual_force_urcap(direction)<force):
+          thread_lin_handler = run thread_lin()
+          #Loop as long as the force is not detected and thread is not finished
+          while ((ins_actual_force_urcap(direction)<force) and (thread_lin_flag ==0)):
+            sync()
+          end
+          #The force is detected or max distance is reached, kill the thread to stop the motion
+          kill thread_lin_handler
+          stopl(2.2)
+        end
+      #Error message for invalid parameters
+      else:
+        popup("Force parameter in Newtons must be between 0 and 150","ERROR rq_lin_search_urcap")
+        halt
+      end
+    else:
+      popup("speed parameter in mm/s must be between 0 and 20","ERROR rq_lin_search_urcap")
+      halt
+    end
+  
+    #The function will return True if the force is detected during the motion
+    #The value returned will be False if the motion reaches the maximum distance without sensing the force
+    return rq_lin_find_something
+  
+  end

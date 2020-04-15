@@ -1,0 +1,78 @@
+/* Sticky Footer Classes */
+
+/* html, */
+/* body {
+  height: 100%;
+} */
+
+/* #page-content {
+  flex: 1 0 auto;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+} */
+
+/* Other Classes for Page Styling */
+
+/* body {
+  background: #007bff;
+  background: linear-gradient(to right, #0062E6, #33AEFF);
+} */
+/* From the Bootstrap4 template */
+body {
+  background: #fff;
+  color: #333;
+}
+
+.navbar {
+  border-bottom: #008ed6 3px solid;
+  opacity: 0.8;
+}
+
+#home-section {
+  /* background: {% static '2.png' %}; */
+  background: url("/static/3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 700px;
+}
+
+#home-section .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 700px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+#home-section .home-inner {
+  padding-top: 150px;
+}
+
+#home-section .card-form {
+  opacity: 0.8;
+}
+#explore-head-section{
+  background: #fff;
+}
+#home-section .fas,
+#create-section .fas {
+  color: #008ed6;
+  background: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#explore-section .fas,
+#share-section .fas {
+  background: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+#about_srp_section{
+
+}

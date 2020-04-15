@@ -1,0 +1,20 @@
+{% extends 'SRP_MAIN/base.html' %}
+{% block content %}
+{% load static %}
+<div class=" pt-5">
+
+</div>
+<div class=" pt-4">
+
+</div>
+<div >
+  {% for srpclusterdb in review_srps %}
+    <h4><a href="{% url 'srpclusterdb_detail' pk=srpclusterdb.pk %}">{{ srpclusterdb.operation }} {{ srpclusterdb.relation }} to {{ srpclusterdb.target }}</a></h4>
+    {# Private Key name must be same as model only with small letter wtf --> srpclusterdb#}
+    {# _detail.html file name must be same as model only with small letter wtf -->srpclusterdb_detail.html#}
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+write_output_ﬂoat_register(0, 0) 
+write_output_ﬂoat_register(1, 0)
+write_output_ﬂoat_register(2, 0)
+write_output_ﬂoat_register(3, 0)
+write_output_ﬂoat_register(4, 0)
+write_output_ﬂoat_register(5, 0)
+write_output_integer_register(1,0)
+# works  fine, moves case a little
+# Execute a spiral search as long as Bushing not inserted
+#V6:Low Force setting, max_distance reduced to 4mm, spiral count reduced, 
+#	two while loops, if success push in and store position
+init_pose_insertion=get_actual_tcp_pose() #Pose where Insertion starts
+rq_ft_sensor_disconnected_check()
+rq_zero_sensor()
+sleep(0.1)
+
+#Parameters for linear search
+direction="Z+"
+force = 10 #[N] 
+speed = 0.0015 #[m/s]
+max_distance = 0.004 #[m]
+
+#Parameters for spiral search
+Lift_after_Spiral=-0.0005 #[m] lift up to try again
+Max_Spiral_Counts=4
+stop_force_threshold = 1 #[N] 
+max_radius = 5.0 #[cm]
+radius_incr=0.15 #[cm]
+peck_mode = False #lift up after each increment
+
+
+spiral_count=1
+rq_linear_search_urcap(direction,force,speed,0.002)
+while ((rq_linear_search_urcap(direction,force,speed,max_distance)==True) and spiral_count<=Max_Spiral_Counts):
+	rq_wait_ft_sensor_steady() 
+	rq_insert_spiral_fjonen(direction,stop_force_threshold,max_radius,radius_incr,peck_mode) 
+	pose_temp=pose_trans(get_actual_tcp_pose(),p[0,0,Lift_after_Spiral,0,0,0])
+	movel(pose_temp,a=1.2,v=speed_setting) #new
+	spiral_count=spiral_count+1
+	rq_wait_ft_sensor_steady()
+	rq_zero_sensor()	
+end	
+# insert false action like push in further or store point
+if spiral_count>Max_Spiral_Counts: # Bushing is not inserted, continue from beginning
+	movel(init_pose_insertion,a=1.2,v=speed_setting) #new
+	rq_ft_sensor_disconnected_check()
+	rq_zero_sensor()
+	sleep(0.1)
+	spiral_count=1
+	while ((rq_linear_search_urcap(direction,force,speed,max_distance)==True) and spiral_count<=Max_Spiral_Counts): 
+		rq_insert_spiral_fjonen(direction,stop_force_threshold,max_radius,radius_incr*1.5,peck_mode) 
+		pose_temp=pose_trans(get_actual_tcp_pose(),p[0,0,Lift_after_Spiral,0,0,0])
+		movel(pose_temp,a=1.2,v=speed_setting) #new
+		spiral_count=spiral_count+1
+		rq_wait_ft_sensor_steady()
+		rq_zero_sensor()	
+	end
+	#Bush_List_stg1[i oder wie diese Zhlvariable heißt..]=0
+end	
+if spiral_count<=Max_Spiral_Counts: # Bushing has been moved successfull into Case
+	#close gripper and push in
+	temp_pose=get_actual_tcp_pose()
+	rq_close_and_wait()
+	rq_linear_search_urcap(direction,12,speed,0.0065)
+	
+	#log success in register1
+	write_output_ﬂoat_register(0, temp_pose[0]) 
+	write_output_ﬂoat_register(1, temp_pose[1])
+	write_output_ﬂoat_register(2, temp_pose[2])
+	write_output_ﬂoat_register(3, temp_pose[3])
+	write_output_ﬂoat_register(4, temp_pose[4])
+	write_output_ﬂoat_register(5, temp_pose[5])
+	write_output_integer_register(1,1)
+else: #bushing not inserted
+	write_output_integer_register(1,2)
+ 
+end

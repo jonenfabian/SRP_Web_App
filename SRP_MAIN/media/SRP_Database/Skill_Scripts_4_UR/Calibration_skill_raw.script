@@ -1,0 +1,272 @@
+write_output_ﬂoat_register(0, 0) 
+write_output_ﬂoat_register(1, 0)
+write_output_ﬂoat_register(2, 0)
+write_output_ﬂoat_register(3, 0)
+write_output_ﬂoat_register(4, 0)
+write_output_ﬂoat_register(5, 0)
+write_output_integer_register(1,1) #1=Success
+global Pmass_variable=Target_root_object_start_pose
+#global Pmass_variable=get_forward_kin()
+# 'set calibration touch height'
+global Pmass_variable=p[Pmass_variable[0],Pmass_variable[1],0.435,Pmass_variable[3],Pmass_variable[4],Pmass_variable[5]]
+global RXass=Pmass_variable[3]
+global RYass=Pmass_variable[4]
+global RZass=Pmass_variable[5]
+global var_2=pose_trans(Pmass_variable,p[0,0,0,0,0,-d2r(60)])
+# 'var 4 endpose of search 1'
+global var_4=pose_trans(var_2,p[0.25,0,0,0,0,0])
+# 'var 5 endpose of search 1'
+global var_5=pose_trans(Pmass_variable,p[0.25,0,0,0,0,0])
+global var_6=pose_trans(Pmass_variable,p[0,0,0,0,0,d2r(60)])
+# 'var 7 endpose of search 1'
+global var_7=pose_trans(var_6,p[0.25,0,0,0,0,0])
+# 'set the speed for triangulation search'
+movej(var_2, a=1.3962634015954636, v=0.7853981633974483, r=0.05)
+movej(var_4, a=1.3962634015954636, v=0.7853981633974483)
+global var_4=pose_trans(var_4,p[0.15,0,0,0,0,0])
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_50=0
+thread Thread_if_50():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_4), a=0.01, v=0.005)
+  thread_flag_50 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_50=run Thread_if_50()
+  while (thread_flag_50 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_50
+      thread_flag_50 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_50 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_58=0
+thread Thread_if_58():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_4), a=0.01, v=0.005)
+  thread_flag_58 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_58=run Thread_if_58()
+  while (thread_flag_58 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_58
+      thread_flag_58 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_58 = 2
+end
+global PFS1=get_forward_kin()
+movej(Pmass_variable, a=1.0471975511965976, v=0.7853981633974483, r=0.2)
+movej(var_5, a=1.0471975511965976, v=0.7853981633974483)
+global var_5=pose_trans(var_5,p[0.15,0,0,0,0,0])
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_69=0
+thread Thread_if_69():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_5), a=0.01, v=0.005)
+  thread_flag_69 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_69=run Thread_if_69()
+  while (thread_flag_69 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_69
+      thread_flag_69 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_69 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_77=0
+thread Thread_if_77():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_5), a=0.01, v=0.005)
+  thread_flag_77 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_77=run Thread_if_77()
+  while (thread_flag_77 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_77
+      thread_flag_77 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_77 = 2
+end
+global PFS2=get_forward_kin()
+movej(Pmass_variable, a=1.0471975511965976, v=0.7853981633974483, r=0.2)
+movej(var_6, a=1.0471975511965976, v=0.7853981633974483)
+movej(var_7, a=1.0471975511965976, v=0.7853981633974483)
+global var_7=pose_trans(var_7,p[0.15,0,0,0,0,0])
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_89=0
+thread Thread_if_89():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_7), a=0.01, v=0.005)
+  thread_flag_89 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_89=run Thread_if_89()
+  while (thread_flag_89 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_89
+      thread_flag_89 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_89 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_97=0
+thread Thread_if_97():
+  movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], var_7), a=0.01, v=0.005)
+  thread_flag_97 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_97=run Thread_if_97()
+  while (thread_flag_97 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_97
+      thread_flag_97 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_97 = 2
+end
+global PFS3=get_forward_kin()
+global ma=(PFS2[1]-PFS1[1])/(PFS2[0]-PFS1[0])
+global mb=(PFS3[1]-PFS2[1])/(PFS3[0]-PFS2[0])
+global MACTx=(ma*mb*(PFS1[1]-PFS3[1])+mb*(PFS1[0]+PFS2[0])-ma*(PFS2[0]+PFS3[0]))/(2*(mb-ma))
+global MACTy=-(1/ma)*(MACTx-(PFS1[0]+PFS2[0])/2)+(PFS1[1]+PFS2[1])/2
+global MACTz=Pmass_variable[2]
+global Pmact=p[MACTx,MACTy,MACTz,RXass,RYass,RZass]
+# 'Radius wird ueber Mittelwert der drei Vektoren gebildet'
+global radius=(sqrt((MACTx-PFS1[0])*(MACTx-PFS1[0])+(MACTy-PFS1[1])*(MACTy-PFS1[1])))
+# 'circ_start60: startpoint for search of p4 60degrees from assumed point on circumference'
+global circ_start_60=p[MACTx+(radius+0.01)*cos(d2r(circ_s_deg)),MACTy+(radius+0.01)*sin(d2r(circ_s_deg)),MACTz,RXass,RYass,RZass]
+# 'rotate gripper so touch surface is always looking in circumfere direction'
+global circ_start_60= pose_trans (circ_start_60,p[0,0,0,0,0,d2r(90-circ_s_deg)])
+# '2 weitere Punkte fuer eine Kreisbahn mit PFS1+2 +7.5% generieren'
+global PFS1ViaPoint=p[PFS3[0]+0.01*sin(d2r(circ_s_deg)),PFS3[1]+0.01*cos(d2r(circ_s_deg)),PFS3[2],RXass,RYass,RZass]
+global PFS2EndPoint=p[PFS2[0]+0.01*sin(d2r(circ_s_deg)),PFS2[1]+0.01*cos(d2r(circ_s_deg)),PFS2[2],RXass,RYass,RZass]
+movej(Pmact, a=1.3962634015954636, v=1.5707963267948966, r=0.25)
+movej(circ_start_60, a=0.3490658503988659, v=0.2617993877991494)
+sleep(0.5)
+# 'Search along circumfere'
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_130=0
+thread Thread_if_130():
+  movec(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS1ViaPoint), pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS2EndPoint), a=0.01, v=0.005, r=0.0, mode=1)
+  thread_flag_130 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_130=run Thread_if_130()
+  while (thread_flag_130 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_130
+      thread_flag_130 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_130 = 2
+end
+global back_off= pose_trans (get_forward_kin(), p[-0.003,0,0,0,0,0])
+movej(back_off, a=0.3490658503988659, v=0.3490658503988659)
+sleep(0.5)
+# begin: URCap Program Node
+#   Source: Robotiq_Force_Copilot, 1.8.1, Robotiq Inc.
+#   Type: Zero FT Sensor
+rq_zero_sensor()
+# end: URCap Program Node
+global thread_flag_140=0
+thread Thread_if_140():
+  movec(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS1ViaPoint), pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], PFS2EndPoint), a=0.01, v=0.005, r=0.0, mode=1)
+  thread_flag_140 = 1
+end
+if ( get_applied_tcp_force (4)<maxforceM_y):
+  global thread_handler_140=run Thread_if_140()
+  while (thread_flag_140 == 0):
+    if not( get_applied_tcp_force (4)<maxforceM_y):
+      kill thread_handler_140
+      thread_flag_140 = 2
+    else:
+      sync()
+    end
+  end
+else:
+  thread_flag_140 = 2
+end
+global PFS4=get_forward_kin()
+movej(circ_start_60, a=0.3490658503988659, v=0.5235987755982988, r=0.005)
+global offset=atan((PFS4[0]-Pmact[0])/(PFS4[1]-Pmact[1]))
+# 'gripper finger fault gets compensated'
+global Preal=pose_trans(Pmact,p[0,0,0,0,0,offset-atan(TCPf_comp/(radius+0.01))])
+write_output_ﬂoat_register(0, Preal[0]) 
+write_output_ﬂoat_register(1, Preal[1])
+write_output_ﬂoat_register(2, Preal[2])
+write_output_ﬂoat_register(3, Preal[3])
+write_output_ﬂoat_register(4, Preal[4])
+write_output_ﬂoat_register(5, Preal[5])
+#write_output_integer_register(1,1) #1=Success

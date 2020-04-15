@@ -1,0 +1,45 @@
+{% extends 'SRP_MAIN/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class=" pt-5">
+
+</div>
+<div class=" pt-4">
+
+</div>
+<h1>STILL IN DEV MODE!</h1>
+<img src='{{ MEDIA_URL }}{{ frames.FW51528_D__BUSH_BEARING092.temporary_image.png }}' >
+{# <img src="{% static '1.png' %}"  alt="..."> #}
+<img src="SRP_MAIN/media/frames/FW51528_D__BUSH_BEARING092/temporary_image.png"  alt="...">
+ {# SRP_MAIN/media/frames/FW51528_D__BUSH_BEARING092/temporary_image.png #}
+{# Heading #}
+<div class="">
+  <h4>{{ srpclusterdb.original }}</h4>
+  <p>{{ srpclusterdb.operation }} {{ srpclusterdb.relation}} to {{ srpclusterdb.target}}</p>
+</div>
+{# Images #}
+<div class="">
+  <p>
+    {{ srpclusterdb.original }}
+  </p>
+</div>
+<div class="">
+  <p>
+    {{ srpclusterdb.target_coordinates_abs }}
+  </p>
+</div>
+
+{{ MEDIA_URL }}
+{{ srpclusterdb.pathplanning_video }}
+<video width='400' controls>
+{# <source src='{{ srpclusterdb.pathplanning_video.url }}' type='video/mp4'> #}
+<source src='{{ MEDIA_URL }}{{ srpclusterdb.pathplanning_video }}' type='video/mp4'>
+{# <source src="{% static '1.png' %}" type='video/mp4'> #}
+<img src="{% static '1.png' %}"  alt="...">
+
+Your browser does not support the video tag.
+</video>
+
+
+{% endblock %}

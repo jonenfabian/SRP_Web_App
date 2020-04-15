@@ -1,0 +1,19 @@
+global stored_angle=0
+#Init List Variables before Start:
+PFS1a=[0,0,0]
+PFS2a=[0,0,0]
+PFS3a=[0,0,0]
+
+Middle_point_listX=[0,0,0,0,0]
+Middle_point_listY=[0,0,0,0,0]
+Middle_point_listZ=[0,0,0,0,0]
+global New_Middle=[0,0,0]
+new_middle=[0,0,0] #only to show in var list, unimportant
+
+Bush_List_stg1X=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Bush_List_stg1Y=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Bush_List_stg1Z=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+#stg1bushpointer=[0,5,10,1,6,11,2,7,12,3,8,13,4,9,14,15] # if middle and angle improvement
+stg1bushpointer=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] # if angle improvement only
+#important for calibration and bushing assembly with steps of 5

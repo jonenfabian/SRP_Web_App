@@ -1,0 +1,37 @@
+{% extends 'SRP_MAIN/base.html' %}
+{% block content %}
+{% load static %}
+{# Intro #}
+<div class=" pt-5">
+
+</div>
+<div class=" pt-4">
+
+</div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">New SRP</h1>
+    <p class="lead">Create a new Synthetic Robot Program with ease.</p>
+
+  </div>
+</div>
+
+{# Step1 #}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Step 1</h1>
+    <p class="lead">Upload the Fitting Instruction</p>
+    <a class="btn btn-outline-success" href="{% url 'create_srp_stp2' %}" role="button">Skip to Step 2</a>
+
+    <form method = "POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Upload</button>
+    </form>
+
+  </div>
+</div>
+
+
+
+{% endblock %}
